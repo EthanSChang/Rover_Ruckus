@@ -11,6 +11,10 @@ import org.opencv.imgproc.Imgproc;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class is a opencv detector for detecting where the gold mineral is to sample
+ */
+
 public class Sampling extends OpenCVpipeline {//TODO: crashes when program is stopped, need to fix
     private Mat rgba = new Mat();
     private Mat hsv = new Mat();
@@ -51,7 +55,7 @@ public class Sampling extends OpenCVpipeline {//TODO: crashes when program is st
         Imgproc.drawContours(rgba, contours, contourId, new Scalar(0, 255, 0), 3);
         contours.clear();
 
-        return filtered;
+        return rgba;
 
     }
 }
