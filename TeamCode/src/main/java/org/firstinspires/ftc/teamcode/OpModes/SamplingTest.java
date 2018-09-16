@@ -12,7 +12,7 @@ public class SamplingTest extends LinearOpMode {
 
     public void runOpMode(){ //currently crashes on init
         detector = new Sampling(); //need to add this piece during init
-        detector.init(hardwareMap.appContext, CameraViewDisplay.getInstance(), 0);
+        detector.init(hardwareMap.appContext, CameraViewDisplay.getInstance(), 0, this);
 
         waitForStart();
 
