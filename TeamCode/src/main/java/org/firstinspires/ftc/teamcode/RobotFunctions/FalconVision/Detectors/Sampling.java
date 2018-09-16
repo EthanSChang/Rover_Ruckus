@@ -4,6 +4,7 @@ import org.firstinspires.ftc.teamcode.RobotFunctions.FalconVision.OpenCVpipeline
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfPoint;
+import org.opencv.core.Point;
 import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
 import org.opencv.core.Size;
@@ -25,6 +26,9 @@ public class Sampling extends OpenCVpipeline {//TODO: crashes when program is st
 
     private double contourThresh = 400;
     private int contourId;
+    private double xPos;
+    private double imageWidth = 1280;
+    private position pos;
 
     public enum position {
         left, center, right, unknown
@@ -40,7 +44,7 @@ public class Sampling extends OpenCVpipeline {//TODO: crashes when program is st
         int i = 0;
         double maxArea = 0;
         double contourArea = 0;
-        Rect boundingRect;
+        Rect boundingRect = new Rect();
         while(opmode.opModeIsActive() && i < contours.size()){ //made for loop out of while loop because I need to check if opmode is still running
             MatOfPoint cnts = contours.get(i);
             contourArea = Imgproc.contourArea(cnts);
@@ -61,7 +65,25 @@ public class Sampling extends OpenCVpipeline {//TODO: crashes when program is st
             opmode.telemetry.addData("contour id", contours.get(contourId).size());
         }
 
+        xPos = boundingRect.tl().x + (1/2 * boundingRect.width);
 
+        if(xPos < rgba.width() / 3 && xPos > 0){
+            pos = position.left;
+            addText("left");
+            opmode.telemetry.addData("position", "left");
+        } else if(xPos < rgba.width() / 3 * 2 && xPos > rgba.width() / 3){
+            pos = position.center;
+            addText("center");
+            opmode.telemetry.addData("position", "center");
+        } else if(xPos > rgba.width() / 3 * 2){
+            pos = position.right;
+            addText("right");
+            opmode.telemetry.addData("position", "right");
+        } else {
+            pos = position.unknown;
+            addText("unknown");
+            opmode.telemetry.addData("position", "unknown");
+        }
 
         opmode.telemetry.update();
 
@@ -69,5 +91,9 @@ public class Sampling extends OpenCVpipeline {//TODO: crashes when program is st
 
         return rgba;
 
+    }
+
+    public void addText(String text){
+        Imgproc.putText(rgba, text, new Point(0, 130), 0, 5, new Scalar(0, 255, 255), 5);
     }
 }
