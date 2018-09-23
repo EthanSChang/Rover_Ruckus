@@ -5,4 +5,5 @@ dependencies {
     compile (name:'Hardware-release', ext: 'aar')
     compile (name:'FtcCommon-release', ext: 'aar')
     compile (name:'WirelessP2p-release', ext:'aar')
+    compile 'com.acmerobotics.dashboard:dashboard:0.1.1'
 }
