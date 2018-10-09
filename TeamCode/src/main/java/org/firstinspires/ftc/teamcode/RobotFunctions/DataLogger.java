@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode.RobotFunctions;
 
 /**
- * This class allows a user to save data to the sd card, and then import the data as a CSV (comma separated values)
+ * This class allows a user to save data to the sd card, and then import the data as a CSV (comma separated values) file
  *
  * @see https://github.com/OliviliK/FTC_Library/blob/master/DataLogger.java for original source
  */
