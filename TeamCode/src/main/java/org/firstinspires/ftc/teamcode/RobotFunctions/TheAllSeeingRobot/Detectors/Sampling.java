@@ -1,6 +1,6 @@
-package org.firstinspires.ftc.teamcode.RobotFunctions.FalconVision.Detectors;
+package org.firstinspires.ftc.teamcode.RobotFunctions.TheAllSeeingRobot.Detectors;
 
-import org.firstinspires.ftc.teamcode.RobotFunctions.FalconVision.OpenCVpipeline;
+import org.firstinspires.ftc.teamcode.RobotFunctions.TheAllSeeingRobot.OpenCVpipeline;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfPoint;

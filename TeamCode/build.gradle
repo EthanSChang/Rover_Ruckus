@@ -15,5 +15,6 @@ repositories {
 }
 dependencies {
     implementation project(':openCVLibrary343')
-    compile 'com.acmerobotics.roadrunner:core:0.2.0'
+    //compile 'com.acmerobotics.roadrunner:core:0.2.0'
+    implementation files('/Users/ethan/Desktop/Android_Studio_Stuff/road-runner-core-0.2.0-SLIM.jar')
 }

@@ -3,8 +3,8 @@ package org.firstinspires.ftc.teamcode.OpModes;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.teamcode.RobotFunctions.FalconVision.CameraViewDisplay;
-import org.firstinspires.ftc.teamcode.RobotFunctions.FalconVision.Detectors.TestDetector;
+import org.firstinspires.ftc.teamcode.RobotFunctions.TheAllSeeingRobot.CameraViewDisplay;
+import org.firstinspires.ftc.teamcode.RobotFunctions.TheAllSeeingRobot.Detectors.TestDetector;
 
 @Autonomous
 public class OpenCVtest extends LinearOpMode {
