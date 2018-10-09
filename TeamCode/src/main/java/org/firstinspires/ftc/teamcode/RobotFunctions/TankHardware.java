@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.RobotFunctions.MotionStuff.PID;
+import org.firstinspires.ftc.teamcode.RobotFunctions.subsystems.Climber;
 import org.firstinspires.ftc.teamcode.RobotFunctions.subsystems.DriveTrain;
 import org.firstinspires.ftc.teamcode.RobotFunctions.subsystems.Sensors;
 
@@ -24,6 +25,7 @@ import org.firstinspires.ftc.teamcode.RobotFunctions.subsystems.Sensors;
 public class TankHardware {
     public DriveTrain driveTrain;
     public Sensors sensors;
+    public Climber climber;
     LinearOpMode LinOpmode;
     OpMode opmode;
     HardwareMap hMap;
@@ -37,6 +39,7 @@ public class TankHardware {
         driveTrain.bl.setDirection(DcMotorSimple.Direction.REVERSE);
         driveTrain.fl.setDirection(DcMotorSimple.Direction.REVERSE);
         sensors = new Sensors(hMap);
+        climber = new Climber(hMap, LinOpMode);
     }
 
     public void init(HardwareMap map){
@@ -45,6 +48,7 @@ public class TankHardware {
         driveTrain.bl.setDirection(DcMotorSimple.Direction.REVERSE);
         driveTrain.fl.setDirection(DcMotorSimple.Direction.REVERSE);
         sensors = new Sensors(hMap);
+        climber = new Climber(hMap);
     }
 
     PID turning = new PID(0, 0, 0, 0.5, -0.7, 0.7); //TODO: tune pid
