@@ -8,4 +8,8 @@ public class Climber {
     public Climber(HardwareMap hmap, LinearOpMode linOpMode){
 
     }
+
+    public Climber(HardwareMap hmap){
+
+    }
 }
