@@ -10,11 +10,7 @@
 // Custom definitions may go here
 // Include common definitions from above.
 apply from: '../build.common.gradle'
-repositories {
-    jcenter()
-}
 dependencies {
     implementation project(':openCVLibrary343')
-    //compile 'com.acmerobotics.roadrunner:core:0.2.0'
-    implementation files('/Users/ethan/Desktop/Android_Studio_Stuff/road-runner-core-0.2.0-SLIM.jar')
+    implementation 'com.acmerobotics.roadrunner:core:0.2.0'
 }
