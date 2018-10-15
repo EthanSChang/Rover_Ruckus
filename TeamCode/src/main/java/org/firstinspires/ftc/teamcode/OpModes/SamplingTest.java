@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.RobotFunctions.TheAllSeeingRobot.Detectors
 public class SamplingTest extends LinearOpMode {
     Sampling detector; //cannot write as Sampling detector = new Sampling();, will cause robot controller to crash in init
 
-    public void runOpMode(){ //currently crashes on init
+    public void runOpMode() throws InterruptedException { //currently crashes on init
         detector = new Sampling(); //need to add this piece during init
         detector.init(hardwareMap.appContext, CameraViewDisplay.getInstance(), 0, this);
 

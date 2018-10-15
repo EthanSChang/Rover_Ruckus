@@ -17,7 +17,7 @@ public class RoadRunnerStuff extends LinearOpMode {
 
 
 
-    public void runOpMode(){
+    public void runOpMode() throws InterruptedException {
 
 
         Path spline = new Path(Arrays.asList(new QuinticSplineSegment(new QuinticSplineSegment.Waypoint(10, 10, 10, 0),

@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.RobotFunctions.TheAllSeeingRobot.Detectors
 public class OpenCVtest extends LinearOpMode {
     TestDetector opencv;
 
-    public void runOpMode() {
+    public void runOpMode() throws InterruptedException {
         opencv = new TestDetector();
         opencv.init(hardwareMap.appContext, CameraViewDisplay.getInstance(), 0);
 
