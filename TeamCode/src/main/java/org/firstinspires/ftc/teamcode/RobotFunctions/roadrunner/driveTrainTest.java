@@ -3,14 +3,20 @@ package org.firstinspires.ftc.teamcode.RobotFunctions.roadrunner;
 import com.acmerobotics.roadrunner.drive.Drive;
 import com.acmerobotics.roadrunner.drive.MecanumDrive;
 import com.acmerobotics.roadrunner.drive.TankDrive;
+import com.qualcomm.hardware.motors.NeveRest20Gearmotor;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
 
 import org.firstinspires.ftc.teamcode.RobotFunctions.Calculators;
 import org.firstinspires.ftc.teamcode.RobotFunctions.MotionStuff.PID;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class adds hardware and methods for a tank drivetrain
@@ -22,13 +28,17 @@ import org.firstinspires.ftc.teamcode.RobotFunctions.MotionStuff.PID;
  */
 
 
-public class driveTrainTest{// extends TankDrive{
+public class driveTrainTest extends TankDrive{
     //public DcMotorEx bl, br, fl, fr;
     HardwareMap map;
     LinearOpMode linOpmode;
     Calculators cal = new Calculators();
 
     public DcMotorEx bl, br, fl, fr;
+
+    public static final MotorConfigurationType MOTOR_CONFIG = MotorConfigurationType.getMotorType(NeveRest20Gearmotor.class);
+
+    private static final double TICKS_PER_REV = MOTOR_CONFIG.getTicksPerRev();
 
     double gamepadX, gamepadY;
     PID pid1 = new PID(0, 0, 0);
@@ -47,7 +57,7 @@ public class driveTrainTest{// extends TankDrive{
     }
 
     public driveTrainTest(HardwareMap map, LinearOpMode linOpmode){ //drivetrain init function for hardware class
-        //super(16.25);
+        super(1);
         this.map = map;
         this.linOpmode = linOpmode;
         bl = (DcMotorEx) map.dcMotor.get("bl");
@@ -57,7 +67,7 @@ public class driveTrainTest{// extends TankDrive{
     }
 
     public driveTrainTest(HardwareMap map){ //drivetrain init function for hardware class
-        //super(16.25);
+        super(1);
         this.map = map;
         bl = (DcMotorEx) map.dcMotor.get("bl");
         br = (DcMotorEx) map.dcMotor.get("br");
@@ -82,6 +92,25 @@ public class driveTrainTest{// extends TankDrive{
         fr.setPower(rightPow);
     }
 
+    private static double encoderTicksToInches(int ticks) {
+        // TODO: modify this appropriately
+        // wheel radius * radians/rev * wheel revs/motor revs * motor revs
+        return 2 * 2 * Math.PI * 1.0 * ticks / TICKS_PER_REV;
+    }
+
+
+    public List<Double> getWheelPositions() {
+        List<Double> wheelPositions = new ArrayList<>();
+
+        wheelPositions.add(encoderTicksToInches(bl.getCurrentPosition()));
+        wheelPositions.add(encoderTicksToInches(br.getCurrentPosition()));
+        wheelPositions.add(encoderTicksToInches(fl.getCurrentPosition()));
+        wheelPositions.add(encoderTicksToInches(fr.getCurrentPosition()));
+
+        return wheelPositions;
+    }
+
+
     int encoderDist;
     public void encoderMove(double distance, double power){ //in inches, set to negative to go backwards
         encoderDist = cal.Inches2Encoder(distance);
@@ -92,9 +121,9 @@ public class driveTrainTest{// extends TankDrive{
         fr.setPower(power);
 
         bl.setTargetPosition(bl.getCurrentPosition() + encoderDist);
-        br.setTargetPosition(bl.getCurrentPosition() + encoderDist);
-        fl.setTargetPosition(bl.getCurrentPosition() + encoderDist);
-        fr.setTargetPosition(bl.getCurrentPosition() + encoderDist);
+        br.setTargetPosition(br.getCurrentPosition() + encoderDist);
+        fl.setTargetPosition(fl.getCurrentPosition() + encoderDist);
+        fr.setTargetPosition(fr.getCurrentPosition() + encoderDist);
 
         while(linOpmode.opModeIsActive() && (bl.isBusy() && br.isBusy()) && fl.isBusy() && fr.isBusy()){linOpmode.telemetry.addData("motor power", power);} //waits for motors to stop moving
     }
