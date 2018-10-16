@@ -9,11 +9,18 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import java.io.IOException;
 
+import static org.firstinspires.ftc.teamcode.RobotFunctions.DashboardConstants.HeadingKd;
+import static org.firstinspires.ftc.teamcode.RobotFunctions.DashboardConstants.HeadingKi;
+import static org.firstinspires.ftc.teamcode.RobotFunctions.DashboardConstants.HeadingKp;
+import static org.firstinspires.ftc.teamcode.RobotFunctions.DashboardConstants.PathKd;
+import static org.firstinspires.ftc.teamcode.RobotFunctions.DashboardConstants.PathKi;
+import static org.firstinspires.ftc.teamcode.RobotFunctions.DashboardConstants.PathKp;
+
 @Autonomous
 public class RunTrajectory extends LinearOpMode {
+    SampleTankDrive drive = new SampleTankDrive(hardwareMap);
     @Override
     public void runOpMode() throws InterruptedException {
-        SampleTankDrive drive = new SampleTankDrive(hardwareMap);
 
         Trajectory trajectory;
         try {
@@ -26,8 +33,8 @@ public class RunTrajectory extends LinearOpMode {
         // then tune the PID coefficients after you verify the open loop response is roughly correct
         TankPIDVAFollower follower = new TankPIDVAFollower(
                 drive,
-                new PIDCoefficients(0, 0, 0),
-                new PIDCoefficients(0, 0, 0),
+                new PIDCoefficients(PathKp, PathKi, PathKd),
+                new PIDCoefficients(HeadingKp, HeadingKi, HeadingKd),
                 0.017,
                 0,
                 0);
