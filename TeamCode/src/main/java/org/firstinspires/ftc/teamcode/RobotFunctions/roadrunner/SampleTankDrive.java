@@ -36,7 +36,7 @@ public class SampleTankDrive extends TankDrive {
 
     public SampleTankDrive(HardwareMap hardwareMap) {
         // TODO: this needs to be tuned using FeedforwardTuningOpMode
-        super(1);
+        super(12.79);
 
         leftFront = hardwareMap.get(DcMotorEx.class, "fl");
         leftRear = hardwareMap.get(DcMotorEx.class, "bl");
@@ -48,7 +48,7 @@ public class SampleTankDrive extends TankDrive {
             // if you keep it, then don't tune kStatic or kA
             // otherwise, at least tune kStatic and kA potentially
             motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            motor.setPIDCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, NORMAL_VELOCITY_PID);
+            //motor.setPIDCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, NORMAL_VELOCITY_PID);
         }
 
         rightRear.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -68,9 +68,12 @@ public class SampleTankDrive extends TankDrive {
     @Override
     public List<Double> getWheelPositions() {
         List<Double> wheelPositions = new ArrayList<>();
-        for (int i = 0; i < 4; i++) {
-            wheelPositions.add(encoderTicksToInches(motors.get(i).getCurrentPosition()));
-        }
+        double leftAvg;
+        double rightAvg;
+        leftAvg = (encoderTicksToInches(motors.get(0).getCurrentPosition()) + encoderTicksToInches(motors.get(1).getCurrentPosition())) / 2;
+        rightAvg =  (encoderTicksToInches(motors.get(2).getCurrentPosition()) + encoderTicksToInches(motors.get(3).getCurrentPosition())) / 2;
+        wheelPositions.add(leftAvg);
+        wheelPositions.add(rightAvg);
         return wheelPositions;
     }
 
