@@ -38,7 +38,7 @@ public class driveTrainTest extends TankDrive{
 
     public static final MotorConfigurationType MOTOR_CONFIG = MotorConfigurationType.getMotorType(NeveRest20Gearmotor.class);
 
-    private static final double TICKS_PER_REV = MOTOR_CONFIG.getTicksPerRev();
+    private static final double TICKS_PER_REV = 538; //MOTOR_CONFIG.getTicksPerRev();
 
     double gamepadX, gamepadY;
     PID pid1 = new PID(0, 0, 0);
