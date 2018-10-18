@@ -48,7 +48,7 @@ public class SampleTankDrive extends TankDrive {
             // if you keep it, then don't tune kStatic or kA
             // otherwise, at least tune kStatic and kA potentially
             motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            //motor.setPIDCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, NORMAL_VELOCITY_PID);
+            motor.setPIDCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, NORMAL_VELOCITY_PID);
         }
 
         rightRear.setDirection(DcMotorSimple.Direction.REVERSE);
