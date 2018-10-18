@@ -50,7 +50,7 @@ public class RunTrajectory extends LinearOpMode {
         TankPIDVAFollower follower = new TankPIDVAFollower(
                 drive,
                 new PIDCoefficients(PathKp, PathKi, PathKd),
-                new PIDCoefficients(HeadingKp, HeadingKi, HeadingKd),
+                new PIDCoefficients(0, HeadingKi, HeadingKd),
                 0.017,
                 0,
                 0);
