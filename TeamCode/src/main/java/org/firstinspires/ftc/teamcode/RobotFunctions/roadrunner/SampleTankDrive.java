@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.RobotFunctions.roadrunner;
 
-import com.acmerobotics.roadrunner.drive.MecanumDrive;
 import com.acmerobotics.roadrunner.drive.TankDrive;
 import com.qualcomm.hardware.motors.NeveRest20Gearmotor;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -36,7 +35,7 @@ public class SampleTankDrive extends TankDrive {
 
     public SampleTankDrive(HardwareMap hardwareMap) {
         // TODO: this needs to be tuned using FeedforwardTuningOpMode
-        super(12.79);
+        super(1);
 
         leftFront = hardwareMap.get(DcMotorEx.class, "fl");
         leftRear = hardwareMap.get(DcMotorEx.class, "bl");
