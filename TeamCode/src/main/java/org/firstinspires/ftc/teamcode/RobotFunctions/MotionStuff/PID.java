@@ -72,9 +72,12 @@ public class PID {
 
     public double getOutput(double actual, double target){return target - actual;}
 
+
+    private double time, preTime, deltaTime;
     public double getOutput(double error){
         this.error = error;
-
+        time = System.currentTimeMillis() / 1000.0;
+        deltaTime = time - preTime;
         error = tgt - actual;
 
         if(firstRun){
@@ -84,7 +87,7 @@ public class PID {
 
         Pout = Kp * error;
 
-        Dout = -Kd * (actual - lastActual);
+        Dout = -Kd * ((actual - lastActual) / deltaTime);
 
         Iout = Ki * errorSum;
         if(Ilim != 0){
@@ -112,6 +115,8 @@ public class PID {
         }
 
         lastActual = actual;
+
+        preTime = time;
 
         return output;
 
