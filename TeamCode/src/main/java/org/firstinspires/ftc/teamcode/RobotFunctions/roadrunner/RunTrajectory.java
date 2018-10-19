@@ -50,7 +50,7 @@ public class RunTrajectory extends LinearOpMode {
         TankPIDVAFollower follower = new TankPIDVAFollower(
                 drive,
                 new PIDCoefficients(PathKp, PathKi, PathKd),
-                new PIDCoefficients(0, HeadingKi, HeadingKd),
+                new PIDCoefficients(HeadingKp, HeadingKi, HeadingKd),
                 0.017,
                 0,
                 0);
@@ -63,8 +63,7 @@ public class RunTrajectory extends LinearOpMode {
             follower.update(currentPose);
             drive.updatePoseEstimate();
             packet.put("tgt", 90);
-            packet.put("process variable", Math.toDegrees(drive.getPoseEstimate().getHeading()));
-            packet.put("kp", HeadingKp);
+            packet.put("actual heading", Math.toDegrees(drive.getPoseEstimate().getHeading()));
             dashboard.sendTelemetryPacket(packet);
         }
     }
