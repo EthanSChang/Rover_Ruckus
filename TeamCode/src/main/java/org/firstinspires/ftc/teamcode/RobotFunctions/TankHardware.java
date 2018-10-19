@@ -39,7 +39,7 @@ public class TankHardware {
         driveTrain.bl.setDirection(DcMotorSimple.Direction.REVERSE);
         driveTrain.fl.setDirection(DcMotorSimple.Direction.REVERSE);
         sensors = new Sensors(hMap);
-        climber = new Climber(hMap, LinOpMode);
+        //climber = new Climber(hMap, LinOpMode);
     }
 
     public void init(HardwareMap map){
@@ -48,7 +48,7 @@ public class TankHardware {
         driveTrain.bl.setDirection(DcMotorSimple.Direction.REVERSE);
         driveTrain.fl.setDirection(DcMotorSimple.Direction.REVERSE);
         sensors = new Sensors(hMap);
-        climber = new Climber(hMap);
+        //climber = new Climber(hMap);
     }
 
     PID turning = new PID(0, 0, 0, 0.5, -0.7, 0.7); //TODO: tune pid
