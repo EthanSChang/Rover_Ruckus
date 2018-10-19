@@ -96,4 +96,8 @@ public class Sampling extends OpenCVpipeline {//TODO: crashes when program is st
     public void addText(String text){
         Imgproc.putText(rgba, text, new Point(0, 130), 0, 5, new Scalar(0, 255, 255), 5);
     }
+
+    public position getPosition(){
+        return pos;
+    }
 }
