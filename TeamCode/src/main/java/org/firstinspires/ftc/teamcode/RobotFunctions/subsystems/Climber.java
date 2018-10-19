@@ -9,14 +9,14 @@ public class Climber {
     LinearOpMode linOpMode;
 
     public DcMotorEx climb; //positive power moves climber counterclockwise
-    public Climber(HardwareMap map, LinearOpMode linOpMode){
-        this.map = map;
+    public Climber(HardwareMap hmap, LinearOpMode linOpMode){
+        map = hmap;
         this.linOpMode = linOpMode;
         climb = (DcMotorEx) map.dcMotor.get("climb");
     }
 
     public Climber(HardwareMap hmap){
-        this.map = map;
+        map = hmap;
         climb = (DcMotorEx) map.dcMotor.get("climb");
     }
 }
