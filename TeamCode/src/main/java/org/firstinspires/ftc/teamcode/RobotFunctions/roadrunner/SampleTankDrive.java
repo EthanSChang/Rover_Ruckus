@@ -35,7 +35,7 @@ public class SampleTankDrive extends TankDrive {
 
     public SampleTankDrive(HardwareMap hardwareMap) {
         // TODO: this needs to be tuned using FeedforwardTuningOpMode
-        super(1);
+        super(1); //try changing to 16.5 (actual track width) and see if robot still undershoots
 
         leftFront = hardwareMap.get(DcMotorEx.class, "fl");
         leftRear = hardwareMap.get(DcMotorEx.class, "bl");
