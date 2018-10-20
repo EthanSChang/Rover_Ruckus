@@ -17,7 +17,7 @@ import java.util.List;
  * This class is a opencv detector for detecting where the gold mineral is to sample
  */
 
-public class Sampling extends OpenCVpipeline {//TODO: crashes when program is stopped, need to fix
+public class Sampling extends OpenCVpipeline {
     private Mat rgba = new Mat();
     private Mat hsv = new Mat();
     private Mat blurred = new Mat();
@@ -33,7 +33,7 @@ public class Sampling extends OpenCVpipeline {//TODO: crashes when program is st
     public enum position {
         left, center, right, unknown
     }
-
+    //TODO: add feature to set limits or margins to where the mineral can be in each position (for example, mineral can be within 20 < x < 50)
     public Mat processFrame(Mat rgba, Mat gray){
         this.rgba = rgba;
         Imgproc.cvtColor(rgba, hsv, Imgproc.COLOR_RGB2HSV);
