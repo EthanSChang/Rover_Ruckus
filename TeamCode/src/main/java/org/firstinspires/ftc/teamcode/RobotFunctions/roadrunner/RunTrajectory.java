@@ -31,19 +31,13 @@ public class RunTrajectory extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         SampleTankDrive drive = new SampleTankDrive(hardwareMap);
-        //Trajectory trajectory;
-        /*
+        Trajectory trajectory;
+
         try {
-            trajectory = AssetsTrajectoryLoader.load("PointTurnTest");
+            trajectory = AssetsTrajectoryLoader.load("straightTest");
         } catch (IOException e) {
             throw new RuntimeException(e);
-        }*/
-
-        DriveConstraints baseConstraints = new DriveConstraints(20.0, 30.0, Math.PI / 2, Math.PI / 2);
-        TankConstraints constraints = new TankConstraints(baseConstraints, drive.getTrackWidth());
-        Trajectory trajectory = new TrajectoryBuilder(new Pose2d(0, 0, 0), constraints)
-                .turnTo(Math.PI)
-                .build();
+        }
 
         // TODO: tune kV, kA, and kStatic in the following follower
         // then tune the PID coefficients after you verify the open loop response is roughly correct
