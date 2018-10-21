@@ -34,8 +34,8 @@ public class SampleTankDrive extends TankDrive {
     private List<DcMotorEx> motors;
 
     public SampleTankDrive(HardwareMap hardwareMap) {
-        // TODO: this needs to be tuned using FeedforwardTuningOpMode
-        super(1); //try changing to 16.5 (actual track width) and see if robot still undershoots
+        // TODO: test running feed forward opmode with different speeds and number of turns
+        super(12.79); //about 22 provides accurate turns
 
         leftFront = hardwareMap.get(DcMotorEx.class, "fl");
         leftRear = hardwareMap.get(DcMotorEx.class, "bl");
