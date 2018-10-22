@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.RobotFunctions.Calculators;
 import org.firstinspires.ftc.teamcode.RobotFunctions.TankHardware;
 
-import static org.firstinspires.ftc.teamcode.RobotFunctions.DashboardConstants.turnSpeed;
+import static org.firstinspires.ftc.teamcode.RobotFunctions.dashboardConstants.Misc.turnSpeed;
 
 @TeleOp
 public class ArcadeDrive extends OpMode {
