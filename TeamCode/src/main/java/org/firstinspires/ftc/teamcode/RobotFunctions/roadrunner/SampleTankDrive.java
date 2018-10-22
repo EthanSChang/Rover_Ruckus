@@ -35,7 +35,7 @@ public class SampleTankDrive extends TankDrive {
 
     public SampleTankDrive(HardwareMap hardwareMap) {
         // TODO: test running feed forward opmode with different speeds and number of turns
-        super(12.79); //about 22 provides accurate turns
+        super(1); //22.5 provides accurate turns
 
         leftFront = hardwareMap.get(DcMotorEx.class, "fl");
         leftRear = hardwareMap.get(DcMotorEx.class, "bl");
@@ -50,8 +50,8 @@ public class SampleTankDrive extends TankDrive {
             motor.setPIDCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, NORMAL_VELOCITY_PID);
         }
 
-        rightRear.setDirection(DcMotorSimple.Direction.REVERSE);
-        rightFront.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftRear.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
 
         motors = Arrays.asList(leftFront, leftRear, rightRear, rightFront);
     }
