@@ -9,5 +9,5 @@ poses:
 constraints:
   maximumVelocity: 24.0
   maximumAcceleration: 24.0
-  maximumAngularVelocity: 2.6179938779914944
-  maximumAngularAcceleration: 4.363323129985823
+  maximumAngularVelocity: 1.7453292519943295
+  maximumAngularAcceleration: 3.490658503988659
