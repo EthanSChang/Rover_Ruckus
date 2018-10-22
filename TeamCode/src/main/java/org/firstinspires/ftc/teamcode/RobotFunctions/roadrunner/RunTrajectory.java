@@ -3,24 +3,20 @@ package org.firstinspires.ftc.teamcode.RobotFunctions.roadrunner;
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Pose2d;
-import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.control.PIDCoefficients;
 import com.acmerobotics.roadrunner.followers.TankPIDVAFollower;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
-import com.acmerobotics.roadrunner.trajectory.TrajectoryBuilder;
-import com.acmerobotics.roadrunner.trajectory.constraints.DriveConstraints;
-import com.acmerobotics.roadrunner.trajectory.constraints.TankConstraints;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import java.io.IOException;
 
-import static org.firstinspires.ftc.teamcode.RobotFunctions.DashboardConstants.HeadingKd;
-import static org.firstinspires.ftc.teamcode.RobotFunctions.DashboardConstants.HeadingKi;
-import static org.firstinspires.ftc.teamcode.RobotFunctions.DashboardConstants.HeadingKp;
-import static org.firstinspires.ftc.teamcode.RobotFunctions.DashboardConstants.PathKd;
-import static org.firstinspires.ftc.teamcode.RobotFunctions.DashboardConstants.PathKi;
-import static org.firstinspires.ftc.teamcode.RobotFunctions.DashboardConstants.PathKp;
+import static org.firstinspires.ftc.teamcode.RobotFunctions.dashboardConstants.RoadRunnerConstants.HeadingKd;
+import static org.firstinspires.ftc.teamcode.RobotFunctions.dashboardConstants.RoadRunnerConstants.HeadingKi;
+import static org.firstinspires.ftc.teamcode.RobotFunctions.dashboardConstants.RoadRunnerConstants.HeadingKp;
+import static org.firstinspires.ftc.teamcode.RobotFunctions.dashboardConstants.RoadRunnerConstants.PathKd;
+import static org.firstinspires.ftc.teamcode.RobotFunctions.dashboardConstants.RoadRunnerConstants.PathKi;
+import static org.firstinspires.ftc.teamcode.RobotFunctions.dashboardConstants.RoadRunnerConstants.PathKp;
 
 @Autonomous
 public class RunTrajectory extends LinearOpMode {
@@ -34,7 +30,7 @@ public class RunTrajectory extends LinearOpMode {
         Trajectory trajectory;
 
         try {
-            trajectory = AssetsTrajectoryLoader.load("straightTest");
+            trajectory = AssetsTrajectoryLoader.load("splineTest");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
