@@ -5,6 +5,9 @@ import com.acmerobotics.roadrunner.drive.Drive;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import static org.firstinspires.ftc.teamcode.RobotFunctions.dashboardConstants.RoadRunnerConstants.trackWidthNumTurns;
+import static org.firstinspires.ftc.teamcode.RobotFunctions.dashboardConstants.RoadRunnerConstants.trackWidthSpeed;
+
 /**
  * Op mode for measuring the empirical track width of a robot drive.
  */
@@ -22,7 +25,7 @@ public abstract class TrackWidthCalibrationOpMode extends LinearOpMode {
     }
 
     public TrackWidthCalibrationOpMode() {
-        this(4, 0.3);
+        this(trackWidthNumTurns, trackWidthSpeed);
     }
 
     @Override
