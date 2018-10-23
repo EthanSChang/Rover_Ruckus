@@ -42,6 +42,8 @@ public class Sampling extends OpenCVpipeline {
         left, center, right, unknown
     }
     //TODO: add feature to set limits or margins to where the mineral can be in each position (for example, mineral can be within 20 < x < 50)
+    //TODO: check if contour takes up certain area of bounding rect
+    //TODO: check if bounding box is roughly square
     public Mat processFrame(Mat rgba, Mat gray){
         this.rgba = rgba;
         Imgproc.cvtColor(rgba, hsv, Imgproc.COLOR_RGB2HSV);
