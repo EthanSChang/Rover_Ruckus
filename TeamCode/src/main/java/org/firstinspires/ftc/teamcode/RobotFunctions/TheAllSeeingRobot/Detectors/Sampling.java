@@ -13,6 +13,13 @@ import org.opencv.imgproc.Imgproc;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.firstinspires.ftc.teamcode.RobotFunctions.dashboardConstants.OpenCV.HighH;
+import static org.firstinspires.ftc.teamcode.RobotFunctions.dashboardConstants.OpenCV.HighS;
+import static org.firstinspires.ftc.teamcode.RobotFunctions.dashboardConstants.OpenCV.HighV;
+import static org.firstinspires.ftc.teamcode.RobotFunctions.dashboardConstants.OpenCV.LowH;
+import static org.firstinspires.ftc.teamcode.RobotFunctions.dashboardConstants.OpenCV.LowS;
+import static org.firstinspires.ftc.teamcode.RobotFunctions.dashboardConstants.OpenCV.LowV;
+
 /**
  * This class is a opencv detector for detecting where the gold mineral is to sample
  */
@@ -24,7 +31,8 @@ public class Sampling extends OpenCVpipeline {
     private Mat filtered = new Mat();
     private List<MatOfPoint> contours = new ArrayList<>();
 
-    private double contourThresh = 400;
+    private double contourMin = 500;
+    private double contourMax = 500000;
     private int contourId;
     private double xPos;
     private double imageWidth = 1280;
@@ -38,7 +46,7 @@ public class Sampling extends OpenCVpipeline {
         this.rgba = rgba;
         Imgproc.cvtColor(rgba, hsv, Imgproc.COLOR_RGB2HSV);
         Imgproc.blur(hsv, blurred, new Size(5, 5));
-        Core.inRange(blurred, new Scalar(20, 40, 200), new Scalar(40, 255, 255), filtered); //need to tune
+        Core.inRange(blurred, new Scalar(LowH, LowS, LowV), new Scalar(HighH, HighS, HighV), filtered); //low 20, 80, 200 high 30, 255, 255
         Imgproc.findContours(filtered, contours, new Mat(), Imgproc.RETR_LIST, Imgproc.CHAIN_APPROX_SIMPLE);
 
         int i = 0;
@@ -49,7 +57,7 @@ public class Sampling extends OpenCVpipeline {
             MatOfPoint cnts = contours.get(i);
             contourArea = Imgproc.contourArea(cnts);
 
-            if(contourArea > contourThresh){
+            if(contourArea > contourMin && contourArea < contourMax){
                 if(contourArea > maxArea){
                     maxArea = contourArea;
                     contourId = i;
@@ -62,7 +70,7 @@ public class Sampling extends OpenCVpipeline {
             Imgproc.drawContours(rgba, contours, contourId, new Scalar(0, 255, 0), 3);
             boundingRect = Imgproc.boundingRect(contours.get(contourId));
             Imgproc.rectangle(rgba, boundingRect.tl(), boundingRect.br(), new Scalar(0, 0, 255), 3);
-            opmode.telemetry.addData("contour id", contours.get(contourId).size());
+            opmode.telemetry.addData("contour id", Imgproc.contourArea(contours.get(contourId)));
         }
 
         xPos = boundingRect.tl().x + (1/2 * boundingRect.width);
