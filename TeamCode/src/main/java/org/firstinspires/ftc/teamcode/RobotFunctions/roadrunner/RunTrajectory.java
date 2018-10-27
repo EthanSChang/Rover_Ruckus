@@ -19,7 +19,7 @@ import static org.firstinspires.ftc.teamcode.RobotFunctions.dashboardConstants.R
 import static org.firstinspires.ftc.teamcode.RobotFunctions.dashboardConstants.RoadRunnerConstants.PathKp;
 
 @Autonomous
-public class RunTrajectory extends LinearOpMode {
+public class RunTrajectory extends LinearOpMode {//TODO: add trajectory runner class
 
     FtcDashboard dashboard = FtcDashboard.getInstance();
     TelemetryPacket packet = new TelemetryPacket();
@@ -30,7 +30,7 @@ public class RunTrajectory extends LinearOpMode {
         Trajectory trajectory;
 
         try {
-            trajectory = AssetsTrajectoryLoader.load("splineTest");
+            trajectory = AssetsTrajectoryLoader.load("BlueCraterCenter");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -45,6 +45,8 @@ public class RunTrajectory extends LinearOpMode {
                 0,
                 0);
 
+        Pose2d pose = new Pose2d(12, 12, 270 * (Math.PI / 180)); //sets starting position
+        drive.setPoseEstimate(pose);
         waitForStart();
 
         follower.followTrajectory(trajectory);
