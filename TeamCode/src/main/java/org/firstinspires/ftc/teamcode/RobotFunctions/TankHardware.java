@@ -36,8 +36,8 @@ public class TankHardware {
         this.LinOpmode = LinOpMode;
         hMap = map; //stores hardware map
         driveTrain = new DriveTrain(hMap, LinOpmode);
-        driveTrain.bl.setDirection(DcMotorSimple.Direction.REVERSE);
-        driveTrain.fl.setDirection(DcMotorSimple.Direction.REVERSE);
+        driveTrain.br.setDirection(DcMotorSimple.Direction.REVERSE);
+        driveTrain.fr.setDirection(DcMotorSimple.Direction.REVERSE);
         sensors = new Sensors(hMap);
         //climber = new Climber(hMap, LinOpMode);
     }
@@ -45,8 +45,8 @@ public class TankHardware {
     public void init(HardwareMap map){
         hMap = map; //stores hardware map
         driveTrain = new DriveTrain(hMap);
-        driveTrain.bl.setDirection(DcMotorSimple.Direction.REVERSE);
-        driveTrain.fl.setDirection(DcMotorSimple.Direction.REVERSE);
+        driveTrain.br.setDirection(DcMotorSimple.Direction.REVERSE);
+        driveTrain.fr.setDirection(DcMotorSimple.Direction.REVERSE);
         sensors = new Sensors(hMap);
         //climber = new Climber(hMap);
     }
