@@ -36,7 +36,7 @@ public class Sampling extends OpenCVpipeline {
     private int contourId;
     private double xPos;
     private double imageWidth = 1280;
-    private position pos;
+    private position pos; //TODO; access this variable in opmode to determine position
 
     public enum position {
         left, center, right, unknown
@@ -109,5 +109,5 @@ public class Sampling extends OpenCVpipeline {
 
     public position getPosition(){
         return pos;
-    }
+    } //TODO: fix to return int and make sure actually works
 }
