@@ -36,7 +36,7 @@ public class Sampling extends OpenCVpipeline {
     private int contourId;
     private double xPos;
     private double imageWidth = 1280;
-    private position pos; //TODO; access this variable in opmode to determine position
+    public int pos; //TODO; access this variable in opmode to determine position
 
     public enum position {
         left, center, right, unknown
@@ -78,19 +78,19 @@ public class Sampling extends OpenCVpipeline {
         xPos = boundingRect.tl().x + (1/2 * boundingRect.width);
 
         if(xPos < rgba.width() / 3 && xPos > 0){
-            pos = position.left;
+            pos = 1;
             addText("left");
             opmode.telemetry.addData("position", "left");
         } else if(xPos < rgba.width() / 3 * 2 && xPos > rgba.width() / 3){
-            pos = position.center;
+            pos = 2;
             addText("center");
             opmode.telemetry.addData("position", "center");
         } else if(xPos > rgba.width() / 3 * 2){
-            pos = position.right;
+            pos = 3;
             addText("right");
             opmode.telemetry.addData("position", "right");
         } else {
-            pos = position.unknown;
+            pos = 0;
             addText("unknown");
             opmode.telemetry.addData("position", "unknown");
         }
@@ -107,7 +107,7 @@ public class Sampling extends OpenCVpipeline {
         Imgproc.putText(rgba, text, new Point(0, 130), 0, 5, new Scalar(0, 255, 255), 5);
     }
 
-    public position getPosition(){
+    public int getPosition(){
         return pos;
     } //TODO: fix to return int and make sure actually works
 }
