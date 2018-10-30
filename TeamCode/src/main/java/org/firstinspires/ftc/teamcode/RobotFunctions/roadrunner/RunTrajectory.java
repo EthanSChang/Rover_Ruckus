@@ -30,7 +30,7 @@ public class RunTrajectory extends LinearOpMode {//TODO: add trajectory runner c
         Trajectory trajectory;
 
         try {
-            trajectory = AssetsTrajectoryLoader.load("BlueCraterCenter");
+            trajectory = AssetsTrajectoryLoader.load("PointTurnTest");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
