@@ -12,5 +12,5 @@
 apply from: '../build.common.gradle'
 dependencies {
     implementation project(':openCVLibrary343')
-    implementation 'com.acmerobotics.roadrunner:core:0.2.0'
+    implementation 'com.acmerobotics.roadrunner:core:0.2.2'
 }
