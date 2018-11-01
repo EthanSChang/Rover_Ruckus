@@ -29,7 +29,7 @@ public class NewTrackWidthCalibrationOpMode extends LinearOpMode {
         SampleTankDrive drive = new SampleTankDrive(hardwareMap);
         NanoClock clock = NanoClock.system();
         // it's important that the IMU/gyro/heading sensor is not part of the localization
-        drive.setLocalizer(new TankDrive.TankLocalizer(drive, clock));
+        drive.setLocalizer(new TankDrive.TankLocalizer(drive, false));
 
         telemetry.log().add("Press play to begin the track width calibration routine");
         telemetry.log().add("Make sure your robot has enough clearance to turn smoothly");
