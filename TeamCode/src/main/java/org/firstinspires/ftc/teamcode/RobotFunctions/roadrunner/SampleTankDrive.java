@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode.RobotFunctions.roadrunner;
 
 import com.acmerobotics.roadrunner.drive.TankDrive;
+import com.qualcomm.hardware.bosch.BNO055IMU;
+import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.hardware.motors.NeveRest20Gearmotor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
@@ -18,6 +20,7 @@ import java.util.List;
 
 public class SampleTankDrive extends TankDrive {
     public static final MotorConfigurationType MOTOR_CONFIG = MotorConfigurationType.getMotorType(NeveRest20Gearmotor.class);
+    public BNO055IMU imu;
 
     private static final double TICKS_PER_REV = MOTOR_CONFIG.getTicksPerRev();
 
@@ -53,6 +56,15 @@ public class SampleTankDrive extends TankDrive {
         rightFront.setDirection(DcMotorSimple.Direction.REVERSE);
 
         motors = Arrays.asList(leftFront, leftRear, rightRear, rightFront);
+
+        imu = hardwareMap.get(BNO055IMU.class, "imu");
+        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
+        parameters.angleUnit = BNO055IMU.AngleUnit.RADIANS;
+        imu.initialize(parameters);
+    }
+
+    public double getExternalHeading() {
+        return imu.getAngularOrientation().firstAngle;
     }
 
     private static double encoderTicksToInches(int ticks) {

@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.RobotFunctions.roadrunner;
 import com.acmerobotics.roadrunner.drive.Drive;
 import com.acmerobotics.roadrunner.drive.MecanumDrive;
 import com.acmerobotics.roadrunner.drive.TankDrive;
+import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.motors.NeveRest20Gearmotor;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -35,6 +36,7 @@ public class driveTrainTest extends TankDrive{
     Calculators cal = new Calculators();
 
     public DcMotorEx bl, br, fl, fr;
+    public BNO055IMU imu;
 
     public static final MotorConfigurationType MOTOR_CONFIG = MotorConfigurationType.getMotorType(NeveRest20Gearmotor.class);
 
@@ -64,6 +66,11 @@ public class driveTrainTest extends TankDrive{
         br = (DcMotorEx) map.dcMotor.get("br");
         fl = (DcMotorEx) map.dcMotor.get("fl");
         fr = (DcMotorEx) map.dcMotor.get("fr");
+
+        imu = map.get(BNO055IMU.class, "imu");
+        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
+        parameters.angleUnit = BNO055IMU.AngleUnit.RADIANS;
+        imu.initialize(parameters);
     }
 
     public driveTrainTest(HardwareMap map){ //drivetrain init function for hardware class
@@ -73,6 +80,15 @@ public class driveTrainTest extends TankDrive{
         br = (DcMotorEx) map.dcMotor.get("br");
         fl = (DcMotorEx) map.dcMotor.get("fl");
         fr = (DcMotorEx) map.dcMotor.get("fr");
+
+        imu = map.get(BNO055IMU.class, "imu");
+        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
+        parameters.angleUnit = BNO055IMU.AngleUnit.RADIANS;
+        imu.initialize(parameters);
+    }
+
+    public double getExternalHeading() {
+        return imu.getAngularOrientation().firstAngle;
     }
 
     public void arcadeDrive(double gamepadX, double gamepadY){//it drives
