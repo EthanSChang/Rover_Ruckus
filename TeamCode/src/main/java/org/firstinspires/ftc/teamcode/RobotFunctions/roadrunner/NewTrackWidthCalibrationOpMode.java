@@ -25,7 +25,7 @@ public class NewTrackWidthCalibrationOpMode extends LinearOpMode {
 
 
     @Override
-    public void runOpMode() throws InterruptedException {/*
+    public void runOpMode() throws InterruptedException {
         SampleTankDrive drive = new SampleTankDrive(hardwareMap);
         NanoClock clock = NanoClock.system();
         // it's important that the IMU/gyro/heading sensor is not part of the localization
@@ -100,4 +100,4 @@ public class NewTrackWidthCalibrationOpMode extends LinearOpMode {
             idle();
         }
     }
-*/}}
+}
