@@ -17,7 +17,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public class SampleTankDrive extends TankDrive {
-    // TODO: change your drive motor
     public static final MotorConfigurationType MOTOR_CONFIG = MotorConfigurationType.getMotorType(NeveRest20Gearmotor.class);
 
     private static final double TICKS_PER_REV = MOTOR_CONFIG.getTicksPerRev();
@@ -58,8 +57,6 @@ public class SampleTankDrive extends TankDrive {
 
     private static double encoderTicksToInches(int ticks) {
         Calculators calc = new Calculators();
-        // TODO: modify this appropriately
-        // wheel radius * radians/rev * wheel revs/motor revs * motor revs
         return calc.Encoder2Inches(ticks);
     }
 
