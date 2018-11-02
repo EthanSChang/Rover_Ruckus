@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode.RobotFunctions.roadrunner;
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.drive.Kinematics;
-import com.acmerobotics.roadrunner.drive.MecanumDrive;
 import com.acmerobotics.roadrunner.drive.TankDrive;
 import com.acmerobotics.roadrunner.profile.MotionProfile;
 import com.acmerobotics.roadrunner.profile.MotionProfileGenerator;
@@ -14,7 +13,6 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.MovingStatistics;
 
-
 import java.util.Locale;
 
 @Config
@@ -23,11 +21,9 @@ public class NewTrackWidthCalibrationOpMode extends LinearOpMode {
     public static int CIRCUMFERENTIAL_DISTANCE = 500;
     public static int NUM_TRIALS = 5;
 
-
     @Override
     public void runOpMode() throws InterruptedException {
         SampleTankDrive drive = new SampleTankDrive(hardwareMap);
-        NanoClock clock = NanoClock.system();
         // it's important that the IMU/gyro/heading sensor is not part of the localization
         drive.setLocalizer(new TankDrive.TankLocalizer(drive, false));
 
@@ -45,7 +41,7 @@ public class NewTrackWidthCalibrationOpMode extends LinearOpMode {
         telemetry.update();
 
         MovingStatistics trackWidthStats = new MovingStatistics(NUM_TRIALS);
-
+        NanoClock clock = NanoClock.system();
         for (int i = 0; i < NUM_TRIALS; i++) {
             drive.setPoseEstimate(new Pose2d());
 
@@ -69,15 +65,11 @@ public class NewTrackWidthCalibrationOpMode extends LinearOpMode {
                 double heading = drive.getExternalHeading();
                 // accumulator is an unwrapped version of the heading
                 headingAccumulator += Angle.norm(heading - lastHeading);
-                telemetry.addData("heading", heading);
-                telemetry.addData("drive heading", drive.getPoseEstimate().getHeading());
-                telemetry.addData("accumulated heading", headingAccumulator);
-                telemetry.update();
 
                 MotionState state = profile.get(elapsedTime);
                 drive.setVelocity(new Pose2d(0, 0,
                         Kinematics.calculateMotorFeedforward(
-                                state.getV(),
+                                2 * state.getV(),
                                 0.0,
                                 DriveConstants.kV,
                                 DriveConstants.kA,
@@ -86,13 +78,9 @@ public class NewTrackWidthCalibrationOpMode extends LinearOpMode {
                 ));
 
                 drive.updatePoseEstimate();
-                lastHeading = heading;
             }
 
             double trackWidth = drive.getPoseEstimate().getHeading() / headingAccumulator;
-            telemetry.addData("track width", trackWidth);
-            telemetry.addData("heading accumulator", headingAccumulator);
-            telemetry.update();
             trackWidthStats.add(trackWidth);
 
             sleep(1000);
