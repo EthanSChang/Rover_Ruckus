@@ -33,7 +33,7 @@ public class SampleTankDrive extends TankDrive {
     public static final PIDCoefficients NORMAL_VELOCITY_PID = new PIDCoefficients(20, 8, 12);
 
     private DcMotorEx leftFront, leftRear, rightRear, rightFront;
-    private List<DcMotorEx> motors;
+    private List<DcMotorEx> motors, leftMotors, rightMotors;
 
     public SampleTankDrive(HardwareMap hardwareMap) {
         // TODO: test running feed forward opmode with different speeds and number of turns
@@ -56,6 +56,9 @@ public class SampleTankDrive extends TankDrive {
         rightFront.setDirection(DcMotorSimple.Direction.REVERSE);
 
         motors = Arrays.asList(leftFront, leftRear, rightRear, rightFront);
+        leftMotors = Arrays.asList(leftFront, leftRear);
+        rightMotors = Arrays.asList(rightFront, rightRear);
+
 
         imu = hardwareMap.get(BNO055IMU.class, "imu");
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
@@ -75,15 +78,16 @@ public class SampleTankDrive extends TankDrive {
     @NotNull
     @Override
     public List<Double> getWheelPositions() {
-        List<Double> wheelPositions = new ArrayList<>();
-        double leftAvg;
-        double rightAvg;
-        leftAvg = (encoderTicksToInches(motors.get(0).getCurrentPosition()) + encoderTicksToInches(motors.get(1).getCurrentPosition())) / 2;
-        rightAvg =  (encoderTicksToInches(motors.get(2).getCurrentPosition()) + encoderTicksToInches(motors.get(3).getCurrentPosition())) / 2;
-        wheelPositions.add(leftAvg);
-        wheelPositions.add(rightAvg);
-        return wheelPositions;
+        double leftSum = 0, rightSum = 0;
+        for (DcMotorEx leftMotor : leftMotors) {
+            leftSum += DriveConstants.encoderTicksToInches(leftMotor.getCurrentPosition());
+        }
+        for (DcMotorEx rightMotor : rightMotors) {
+            rightSum += DriveConstants.encoderTicksToInches(rightMotor.getCurrentPosition());
+        }
+        return Arrays.asList(leftSum / leftMotors.size(), rightSum / rightMotors.size());
     }
+
 
     public void setMotorPowers(double leftPow, double rightPow){
         leftFront.setPower(leftPow);
