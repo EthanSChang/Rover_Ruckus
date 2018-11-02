@@ -69,6 +69,10 @@ public class NewTrackWidthCalibrationOpMode extends LinearOpMode {
                 double heading = drive.getExternalHeading();
                 // accumulator is an unwrapped version of the heading
                 headingAccumulator += Angle.norm(heading - lastHeading);
+                telemetry.addData("heading", heading);
+                telemetry.addData("drive heading", drive.getPoseEstimate().getHeading());
+                telemetry.addData("accumulated heading", headingAccumulator);
+                telemetry.update();
 
                 MotionState state = profile.get(elapsedTime);
                 drive.setVelocity(new Pose2d(0, 0,
