@@ -37,7 +37,7 @@ public class SampleTankDrive extends TankDrive {
 
     public SampleTankDrive(HardwareMap hardwareMap) {
         // TODO: test running feed forward opmode with different speeds and number of turns
-        super(1); //22.5 provides accurate turns
+        super(20.16); //20.16 for home drivetrain
 
         leftFront = hardwareMap.get(DcMotorEx.class, "fl");
         leftRear = hardwareMap.get(DcMotorEx.class, "bl");
