@@ -86,6 +86,7 @@ public class NewTrackWidthCalibrationOpMode extends LinearOpMode {
                 ));
 
                 drive.updatePoseEstimate();
+                lastHeading = heading;
             }
 
             double trackWidth = drive.getPoseEstimate().getHeading() / headingAccumulator;
