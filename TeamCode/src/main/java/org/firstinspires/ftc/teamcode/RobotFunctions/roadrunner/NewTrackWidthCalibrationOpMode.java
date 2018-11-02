@@ -90,6 +90,9 @@ public class NewTrackWidthCalibrationOpMode extends LinearOpMode {
             }
 
             double trackWidth = drive.getPoseEstimate().getHeading() / headingAccumulator;
+            telemetry.addData("track width", trackWidth);
+            telemetry.addData("heading accumulator", headingAccumulator);
+            telemetry.update();
             trackWidthStats.add(trackWidth);
 
             sleep(1000);
