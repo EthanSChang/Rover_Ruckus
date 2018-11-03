@@ -2,12 +2,14 @@ package org.firstinspires.ftc.teamcode.RobotFunctions.MotionStuff;
 
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.control.PIDCoefficients;
+import com.acmerobotics.roadrunner.drive.Drive;
 import com.acmerobotics.roadrunner.drive.TankDrive;
 import com.acmerobotics.roadrunner.followers.TankPIDVAFollower;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.RobotFunctions.roadrunner.AssetsTrajectoryLoader;
+import org.firstinspires.ftc.teamcode.RobotFunctions.roadrunner.DriveConstants;
 
 import java.io.IOException;
 
@@ -19,7 +21,6 @@ import static org.firstinspires.ftc.teamcode.RobotFunctions.dashboardConstants.R
 import static org.firstinspires.ftc.teamcode.RobotFunctions.dashboardConstants.RoadRunnerConstants.PathKp;
 
 public class TrajectoryRunner {
-    Trajectory Trajectory;
     TankDrive drive;
     Pose2d startingPose;
     LinearOpMode opMode;
@@ -29,12 +30,22 @@ public class TrajectoryRunner {
         this.opMode = opMode;
     }
 
+    public TrajectoryRunner(TankDrive drive, LinearOpMode opMode){
+        this.drive = drive;
+        this.opMode = opMode;
+    }
+
+    public void setStartingPose(Pose2d startingPose){
+        this.startingPose = startingPose;
+    }
+
     public void runTrajectory(String trajectory){
+        Trajectory Trajectory;
         TankPIDVAFollower follower = new TankPIDVAFollower(
                 drive,
                 new PIDCoefficients(PathKp, PathKi, PathKd),
                 new PIDCoefficients(HeadingKp, HeadingKi, HeadingKd),
-                0.017,
+                DriveConstants.kV,
                 0,
                 0);
 
