@@ -1,62 +1,57 @@
 package org.firstinspires.ftc.teamcode.RobotFunctions.roadrunner;
 
 import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Pose2d;
-import com.acmerobotics.roadrunner.control.PIDCoefficients;
-import com.acmerobotics.roadrunner.followers.TankPIDVAFollower;
-import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import java.io.IOException;
-
-import static org.firstinspires.ftc.teamcode.RobotFunctions.dashboardConstants.RoadRunnerConstants.HeadingKd;
-import static org.firstinspires.ftc.teamcode.RobotFunctions.dashboardConstants.RoadRunnerConstants.HeadingKi;
-import static org.firstinspires.ftc.teamcode.RobotFunctions.dashboardConstants.RoadRunnerConstants.HeadingKp;
-import static org.firstinspires.ftc.teamcode.RobotFunctions.dashboardConstants.RoadRunnerConstants.PathKd;
-import static org.firstinspires.ftc.teamcode.RobotFunctions.dashboardConstants.RoadRunnerConstants.PathKi;
-import static org.firstinspires.ftc.teamcode.RobotFunctions.dashboardConstants.RoadRunnerConstants.PathKp;
-
+import org.firstinspires.ftc.teamcode.RobotFunctions.MotionStuff.TrajectoryRunner;
+@Config
 @Autonomous
-public class RunTrajectory extends LinearOpMode {//TODO: add trajectory runner class
-
+public class RunTrajectory extends LinearOpMode {
     FtcDashboard dashboard = FtcDashboard.getInstance();
     TelemetryPacket packet = new TelemetryPacket();
+    public static int trajectoryNum;
+    String trajectory;
+    Pose2d startingPose;
 
     @Override
     public void runOpMode() throws InterruptedException {
         SampleTankDrive drive = new SampleTankDrive(hardwareMap);
-        Trajectory trajectory;
+        TrajectoryRunner runner = new TrajectoryRunner(drive, this);
 
-        try {
-            trajectory = AssetsTrajectoryLoader.load("PointTurnTest");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        switch(trajectoryNum){//takes input from dashboard and turns it into a string for the trajectory runner
+            case 1: trajectory = "BlueCraterLeft"; break;
+            case 2: trajectory = "BlueCraterCenter"; break;
+            case 3: trajectory = "BlueCraterRight"; break;
+            case 4: trajectory = "BlueDepotLeft"; break;
+            case 5: trajectory = "BlueDepotCenter"; break;
+            case 6: trajectory = "BlueDepotRight"; break;
+            case 7: trajectory = "RedCraterLeft"; break;
+            case 8: trajectory = "RedCraterCenter"; break;
+            case 9: trajectory = "RedCraterRight"; break;
+            case 10: trajectory = "RedDepotLeft"; break;
+            case 11: trajectory = "RedDepotCenter"; break;
+            case 12: trajectory = "RedDepotRight"; break;
         }
 
-        // TODO: tune kV, kA, and kStatic in the following follower
-        // then tune the PID coefficients after you verify the open loop response is roughly correct
-        TankPIDVAFollower follower = new TankPIDVAFollower(
-                drive,
-                new PIDCoefficients(PathKp, PathKi, PathKd),
-                new PIDCoefficients(HeadingKp, HeadingKi, HeadingKd),
-                0.017,
-                0,
-                0);
+        //sets starting position of robot based upon what trajectory is being run
+        if(trajectoryNum == 1 || trajectoryNum == 2 || trajectoryNum == 3){startingPose = new Pose2d(12, 12, Math.toRadians(-45));}
+        else if(trajectoryNum == 4 || trajectoryNum == 5 || trajectoryNum == 6){startingPose = new Pose2d(-12, 12, Math.toRadians(-135));}
+        else if(trajectoryNum == 7 || trajectoryNum == 8 || trajectoryNum == 9){startingPose = new Pose2d(-12, -12, Math.toRadians(-45));}
+        else if(trajectoryNum == 10 || trajectoryNum == 11 || trajectoryNum == 12){startingPose = new Pose2d(12, -12, Math.toRadians(-135));}
 
-        Pose2d pose = new Pose2d(12, 12, 270 * (Math.PI / 180)); //sets starting position
-        drive.setPoseEstimate(pose);
+        runner.setStartingPose(startingPose);
+
+        telemetry.addData("trajectory number", trajectoryNum);
+        telemetry.addData("trajectory", trajectory);
+        telemetry.update();
+
         waitForStart();
 
-        follower.followTrajectory(trajectory);
-        while (opModeIsActive()){// && follower.isFollowing()) {
-            Pose2d currentPose = drive.getPoseEstimate();
-            follower.update(currentPose);
-            drive.updatePoseEstimate();
-            packet.put("tgt", 90);
-            packet.put("actual heading", Math.toDegrees(drive.getPoseEstimate().getHeading()));
-            dashboard.sendTelemetryPacket(packet);
-        }
+        runner.runTrajectory(trajectory);
+
     }
 }
