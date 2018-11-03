@@ -29,7 +29,7 @@ public class DriveFFTuningOpMode extends LinearOpMode {
     private static final double EPSILON = 1e-2;
 
     public static final double MAX_POWER = 0.7;
-    public static final double DISTANCE = 100;
+    public static final double DISTANCE = 72;
 
     private static List<Double> numericalDerivative(List<Double> x, List<Double> y) {
         List<Double> deriv = new ArrayList<>();
