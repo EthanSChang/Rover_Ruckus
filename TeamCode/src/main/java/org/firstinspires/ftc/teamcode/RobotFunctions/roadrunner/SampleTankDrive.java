@@ -1,6 +1,11 @@
 package org.firstinspires.ftc.teamcode.RobotFunctions.roadrunner;
 
+import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.drive.TankDrive;
+import com.acmerobotics.roadrunner.followers.TrajectoryFollower;
+import com.acmerobotics.roadrunner.trajectory.Trajectory;
+import com.acmerobotics.roadrunner.trajectory.TrajectoryBuilder;
+import com.acmerobotics.roadrunner.trajectory.constraints.DriveConstraints;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.hardware.motors.NeveRest20Gearmotor;
@@ -34,6 +39,8 @@ public class SampleTankDrive extends TankDrive {
 
     private DcMotorEx leftFront, leftRear, rightRear, rightFront;
     private List<DcMotorEx> motors, leftMotors, rightMotors;
+    private DriveConstraints constraints;
+    private TrajectoryFollower follower;
 
     public SampleTankDrive(HardwareMap hardwareMap) {
         // TODO: test running feed forward opmode with different speeds and number of turns
@@ -64,6 +71,31 @@ public class SampleTankDrive extends TankDrive {
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.angleUnit = BNO055IMU.AngleUnit.RADIANS;
         imu.initialize(parameters);
+    }
+
+    public TrajectoryBuilder trajectoryBuilder() {
+        return new TrajectoryBuilder(getPoseEstimate(), constraints);
+    }
+
+    public void followTrajectory(Trajectory trajectory) {
+        follower.followTrajectory(trajectory);
+    }
+
+    public boolean isFollowingTrajectory() {
+        return follower.isFollowing();
+    }
+
+    public Pose2d getFollowingError() {
+        return follower.getLastError();
+    }
+
+    public void updateFollower() {
+        follower.update(getPoseEstimate());
+    }
+
+    public void update() {
+        updatePoseEstimate();
+        updateFollower();
     }
 
     public double getExternalHeading() {
