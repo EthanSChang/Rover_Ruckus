@@ -1,7 +1,11 @@
 package org.firstinspires.ftc.teamcode.RobotFunctions.roadrunner;
 
+import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.Pose2d;
+import com.acmerobotics.roadrunner.control.PIDCoefficients;
 import com.acmerobotics.roadrunner.drive.TankDrive;
+import com.acmerobotics.roadrunner.followers.MecanumPIDVAFollower;
+import com.acmerobotics.roadrunner.followers.TankPIDVAFollower;
 import com.acmerobotics.roadrunner.followers.TrajectoryFollower;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.acmerobotics.roadrunner.trajectory.TrajectoryBuilder;
@@ -14,7 +18,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.PIDCoefficients;
+import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
 
 import org.firstinspires.ftc.teamcode.RobotFunctions.Calculators;
@@ -23,10 +27,13 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
+@Config
 public class SampleTankDrive extends TankDrive {
     public static final MotorConfigurationType MOTOR_CONFIG = MotorConfigurationType.getMotorType(NeveRest20Gearmotor.class);
     public BNO055IMU imu;
+
+    public static com.acmerobotics.roadrunner.control.PIDCoefficients TRANSLATIONAL_PID = new com.acmerobotics.roadrunner.control.PIDCoefficients(0, 0, 0);
+    public static com.acmerobotics.roadrunner.control.PIDCoefficients HEADING_PID = new com.acmerobotics.roadrunner.control.PIDCoefficients(0, 0, 0);
 
     private static final double TICKS_PER_REV = MOTOR_CONFIG.getTicksPerRev();
 
@@ -36,7 +43,7 @@ public class SampleTankDrive extends TankDrive {
      * orbital 20s. Adjust accordingly (or tune them yourself, see
      * https://github.com/acmerobotics/relic-recovery/blob/master/TeamCode/src/main/java/com/acmerobotics/relicrecovery/opmodes/tuner/DriveVelocityPIDTuner.java
      */
-    public static final PIDCoefficients NORMAL_VELOCITY_PID = new PIDCoefficients(20, 8, 12);
+    public static final com.qualcomm.robotcore.hardware.PIDCoefficients NORMAL_VELOCITY_PID = new com.qualcomm.robotcore.hardware.PIDCoefficients(15, 2, 9);
 
     private DcMotorEx leftFront, leftRear, rightRear, rightFront;
     private List<DcMotorEx> motors, leftMotors, rightMotors;
@@ -47,6 +54,8 @@ public class SampleTankDrive extends TankDrive {
         // TODO: test running feed forward opmode with different speeds and number of turns
         super(DriveConstants.TRACK_WIDTH); //20.16 for home drivetrain
         constraints = new TankConstraints(DriveConstants.BASE_CONSTRAINTS, DriveConstants.TRACK_WIDTH);
+        follower = new TankPIDVAFollower(this, TRANSLATIONAL_PID, HEADING_PID,
+                DriveConstants.kV, DriveConstants.kA, DriveConstants.kStatic);
 
         leftFront = hardwareMap.get(DcMotorEx.class, "fl");
         leftRear = hardwareMap.get(DcMotorEx.class, "bl");
@@ -73,6 +82,19 @@ public class SampleTankDrive extends TankDrive {
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.angleUnit = BNO055IMU.AngleUnit.RADIANS;
         imu.initialize(parameters);
+    }
+
+    public PIDCoefficients getPIDCoefficients(DcMotor.RunMode runMode) {
+        PIDFCoefficients coefficients = leftMotors.get(0).getPIDFCoefficients(runMode);
+        return new PIDCoefficients(coefficients.p, coefficients.i, coefficients.d);
+    }
+
+    public void setPIDCoefficients(DcMotor.RunMode runMode, PIDCoefficients coefficients) {
+        for (DcMotorEx motor : motors) {
+            motor.setPIDFCoefficients(runMode, new PIDFCoefficients(
+                    coefficients.kP, coefficients.kI, coefficients.kD, 1
+            ));
+        }
     }
 
     public TrajectoryBuilder trajectoryBuilder() {
