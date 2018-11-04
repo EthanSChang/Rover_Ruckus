@@ -6,6 +6,7 @@ import com.acmerobotics.roadrunner.followers.TrajectoryFollower;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.acmerobotics.roadrunner.trajectory.TrajectoryBuilder;
 import com.acmerobotics.roadrunner.trajectory.constraints.DriveConstraints;
+import com.acmerobotics.roadrunner.trajectory.constraints.TankConstraints;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.hardware.motors.NeveRest20Gearmotor;
@@ -45,6 +46,7 @@ public class SampleTankDrive extends TankDrive {
     public SampleTankDrive(HardwareMap hardwareMap) {
         // TODO: test running feed forward opmode with different speeds and number of turns
         super(DriveConstants.TRACK_WIDTH); //20.16 for home drivetrain
+        constraints = new TankConstraints(DriveConstants.BASE_CONSTRAINTS, DriveConstants.TRACK_WIDTH);
 
         leftFront = hardwareMap.get(DcMotorEx.class, "fl");
         leftRear = hardwareMap.get(DcMotorEx.class, "bl");
