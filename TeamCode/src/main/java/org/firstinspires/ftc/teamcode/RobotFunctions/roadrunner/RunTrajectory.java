@@ -38,6 +38,7 @@ public class RunTrajectory extends LinearOpMode {
         }
 
         //sets starting position of robot based upon what trajectory is being run
+        //TODO: figure out why trajectories 4-9 run backwards
         if(trajectoryNum == 1 || trajectoryNum == 2 || trajectoryNum == 3){startingPose = new Pose2d(12, 12, Math.toRadians(-45));}
         else if(trajectoryNum == 4 || trajectoryNum == 5 || trajectoryNum == 6){startingPose = new Pose2d(-12, 12, Math.toRadians(-135));}
         else if(trajectoryNum == 7 || trajectoryNum == 8 || trajectoryNum == 9){startingPose = new Pose2d(-12, -12, Math.toRadians(-45));}
