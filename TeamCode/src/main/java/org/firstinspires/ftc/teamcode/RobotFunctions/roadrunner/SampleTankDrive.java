@@ -43,8 +43,8 @@ public class SampleTankDrive extends TankDrive {
      * orbital 20s. Adjust accordingly (or tune them yourself, see
      * https://github.com/acmerobotics/relic-recovery/blob/master/TeamCode/src/main/java/com/acmerobotics/relicrecovery/opmodes/tuner/DriveVelocityPIDTuner.java
      */
-    public static final com.qualcomm.robotcore.hardware.PIDCoefficients NORMAL_VELOCITY_PID = new com.qualcomm.robotcore.hardware.PIDCoefficients(15, 2, 9);
-
+    //public static final com.qualcomm.robotcore.hardware.PIDCoefficients NORMAL_VELOCITY_PID = new com.qualcomm.robotcore.hardware.PIDCoefficients(15, 2, 9);
+        
     private DcMotorEx leftFront, leftRear, rightRear, rightFront;
     private List<DcMotorEx> motors, leftMotors, rightMotors;
     private DriveConstraints constraints;
@@ -67,7 +67,6 @@ public class SampleTankDrive extends TankDrive {
             // if you keep it, then don't tune kStatic or kA
             // otherwise, at least tune kStatic and kA potentially
             motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            motor.setPIDCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, NORMAL_VELOCITY_PID);
         }
 
         rightRear.setDirection(DcMotorSimple.Direction.REVERSE);
