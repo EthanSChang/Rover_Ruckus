@@ -1,5 +1,8 @@
 package org.firstinspires.ftc.teamcode.RobotFunctions.MotionStuff;
 
+import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.canvas.Canvas;
+import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.control.PIDCoefficients;
 import com.acmerobotics.roadrunner.drive.Drive;
@@ -9,6 +12,7 @@ import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.RobotFunctions.roadrunner.AssetsTrajectoryLoader;
+import org.firstinspires.ftc.teamcode.RobotFunctions.roadrunner.DashboardUtil;
 import org.firstinspires.ftc.teamcode.RobotFunctions.roadrunner.DriveConstants;
 
 import java.io.IOException;
@@ -24,6 +28,8 @@ public class TrajectoryRunner {
     TankDrive drive;
     Pose2d startingPose;
     LinearOpMode opMode;
+    FtcDashboard dashboard = FtcDashboard.getInstance();
+    TelemetryPacket packet = new TelemetryPacket();
     public TrajectoryRunner(TankDrive drive, Pose2d startingPose, LinearOpMode opMode){
         this.drive = drive;
         this.startingPose = startingPose;
@@ -61,6 +67,11 @@ public class TrajectoryRunner {
 
         while(follower.isFollowing() && opMode.opModeIsActive()){
             Pose2d currentPose = drive.getPoseEstimate();
+
+            packet.put("x pos", drive.getPoseEstimate().getX());
+            packet.put("y pos", drive.getPoseEstimate().getY());
+            dashboard.sendTelemetryPacket(packet);
+
             follower.update(currentPose);
             drive.updatePoseEstimate();
         }
