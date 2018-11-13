@@ -63,6 +63,8 @@ public class NewTrackWidthCalibrationOpMode extends LinearOpMode {
                 }
 
                 double heading = drive.getExternalHeading();
+                telemetry.addData("heading", heading);
+                telemetry.update();
                 // accumulator is an unwrapped version of the heading
                 headingAccumulator += Angle.norm(heading - lastHeading);
 
