@@ -13,8 +13,15 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.MovingStatistics;
 
-import java.util.Locale;
+import org.firstinspires.ftc.robotcore.internal.system.Misc;
 
+/*
+ * Similar to the deprecated TrackWidthCalibrationOpMode, this routine attempts to automagically
+ * determine the drive track width. The basic idea is to use a motion profile to rotate the robot
+ * a certain circumferential distance and compare it to the angle swept out (as measured by the
+ * IMU). For robustness, this procedure is repeated a few times, and the final track width is
+ * averaged over those runs.
+ */
 @Config
 @Autonomous
 public class NewTrackWidthCalibrationOpMode extends LinearOpMode {
@@ -50,29 +57,28 @@ public class NewTrackWidthCalibrationOpMode extends LinearOpMode {
             MotionProfile profile = MotionProfileGenerator.generateSimpleMotionProfile(
                     new MotionState(0, 0, 0, 0),
                     new MotionState(CIRCUMFERENTIAL_DISTANCE, 0, 0, 0),
-                    0.5 * DriveConstants.BASE_CONSTRAINTS.maximumVelocity,
-                    0.5 * DriveConstants.BASE_CONSTRAINTS.maximumAcceleration
+                    DriveConstants.BASE_CONSTRAINTS.maximumVelocity,
+                    DriveConstants.BASE_CONSTRAINTS.maximumAcceleration
             );
 
             double startTime = clock.seconds();
-            while (!this.isStopRequested() && this.isStarted()) {
+            while (!isStopRequested()) {
                 double elapsedTime = clock.seconds() - startTime;
-                if (time > profile.duration()) {
+                if (elapsedTime > profile.duration()) {
                     drive.setVelocity(new Pose2d(0, 0, 0));
                     break;
                 }
 
                 double heading = drive.getExternalHeading();
-                telemetry.addData("heading", heading);
-                telemetry.update();
                 // accumulator is an unwrapped version of the heading
                 headingAccumulator += Angle.norm(heading - lastHeading);
+                lastHeading = heading;
 
                 MotionState state = profile.get(elapsedTime);
                 drive.setVelocity(new Pose2d(0, 0,
                         Kinematics.calculateMotorFeedforward(
-                                2 * state.getV(),
-                                0.0,
+                                state.getV(),
+                                state.getA(),
                                 DriveConstants.kV,
                                 DriveConstants.kA,
                                 DriveConstants.kStatic
@@ -90,7 +96,7 @@ public class NewTrackWidthCalibrationOpMode extends LinearOpMode {
 
         telemetry.log().clear();
         telemetry.log().add("Calibration complete");
-        telemetry.log().add(String.format(Locale.ROOT, "Effective track width = %.2f (SE = %.3f)",
+        telemetry.log().add(Misc.formatInvariant("Effective track width = %.2f (SE = %.3f)",
                 trackWidthStats.getMean(), trackWidthStats.getStandardDeviation() / Math.sqrt(NUM_TRIALS)));
         telemetry.update();
 
