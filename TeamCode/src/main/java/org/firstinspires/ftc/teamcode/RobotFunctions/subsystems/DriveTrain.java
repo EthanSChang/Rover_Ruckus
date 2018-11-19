@@ -60,14 +60,26 @@ public class DriveTrain {
         fr = (DcMotorEx) map.dcMotor.get("fr");
     }
 
-    public void arcadeDrive(double gamepadX, double gamepadY){//it drives
+    private double xCubed, yCubed;
+    public void arcadeDrive(double gamepadX, double gamepadY, boolean cubed){//it drives
         this.gamepadX = gamepadX;
         this.gamepadY = gamepadY;
+        xCubed = Math.pow(gamepadX, 3);
+        yCubed = Math.pow(gamepadY, 3);
 
-        bl.setPower(-gamepadY + gamepadX);
-        br.setPower(-gamepadY - gamepadX);
-        fl.setPower(-gamepadY + gamepadX);
-        fr.setPower(-gamepadY - gamepadX);
+        if(cubed){
+            bl.setPower(-yCubed + xCubed);
+            br.setPower(-yCubed - xCubed);
+            fl.setPower(-yCubed + xCubed);
+            fr.setPower(-yCubed - xCubed);
+        } else {
+            bl.setPower(-gamepadY + gamepadX);
+            br.setPower(-gamepadY - gamepadX);
+            fl.setPower(-gamepadY + gamepadX);
+            fr.setPower(-gamepadY - gamepadX);
+        }
+
+
     }
 
     int encoderDist;
