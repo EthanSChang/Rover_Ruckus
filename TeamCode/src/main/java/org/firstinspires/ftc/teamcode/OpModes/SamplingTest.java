@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.OpModes;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.vuforia.CameraDevice;
 
 import org.firstinspires.ftc.teamcode.RobotFunctions.TheAllSeeingRobot.CameraViewDisplay;
 import org.firstinspires.ftc.teamcode.RobotFunctions.TheAllSeeingRobot.Detectors.Sampling;
@@ -11,6 +12,7 @@ public class SamplingTest extends LinearOpMode {
     Sampling detector; //cannot write as Sampling detector = new Sampling();, will cause robot controller to crash in init
     int[] pos = new int[4];
     public void runOpMode() throws InterruptedException {
+        CameraDevice.getInstance().setFlashTorchMode(true); //turns on camera flash
         detector = new Sampling(); //need to add this piece during init
         detector.init(hardwareMap.appContext, CameraViewDisplay.getInstance(), 0, this);
 
@@ -30,6 +32,8 @@ public class SamplingTest extends LinearOpMode {
             telemetry.addData("right", pos[3]);
             telemetry.update();
         }
+
+        CameraDevice.getInstance().setFlashTorchMode(false);
 
         double max = 0;
         int maxID = 0;
