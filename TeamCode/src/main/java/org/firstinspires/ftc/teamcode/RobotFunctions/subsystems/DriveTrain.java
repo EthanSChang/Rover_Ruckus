@@ -61,22 +61,29 @@ public class DriveTrain {
     }
 
     private double xCubed, yCubed;
-    public void arcadeDrive(double gamepadX, double gamepadY, boolean cubed){//it drives
+    private boolean lastState, toggle; //code for flipping which side of drivetrain is the front
+    public void arcadeDrive(double gamepadX, double gamepadY, boolean directionToggle){//it drives
         this.gamepadX = gamepadX;
         this.gamepadY = gamepadY;
+
         xCubed = Math.pow(gamepadX, 3);
         yCubed = Math.pow(gamepadY, 3);
 
-        if(cubed){
+        if(directionToggle != lastState){
+            lastState = directionToggle;
+            toggle = !toggle;
+        }
+
+        if(toggle){
+            bl.setPower(-1 * (-yCubed + xCubed));
+            br.setPower(-1 * (-yCubed - xCubed));
+            fl.setPower(-1 * (-yCubed + xCubed));
+            fr.setPower(-1 * (-yCubed - xCubed));
+        } else {
             bl.setPower(-yCubed + xCubed);
             br.setPower(-yCubed - xCubed);
             fl.setPower(-yCubed + xCubed);
             fr.setPower(-yCubed - xCubed);
-        } else {
-            bl.setPower(-gamepadY + gamepadX);
-            br.setPower(-gamepadY - gamepadX);
-            fl.setPower(-gamepadY + gamepadX);
-            fr.setPower(-gamepadY - gamepadX);
         }
 
 
