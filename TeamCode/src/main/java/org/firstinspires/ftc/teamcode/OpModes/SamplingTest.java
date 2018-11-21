@@ -12,7 +12,7 @@ public class SamplingTest extends LinearOpMode {
     Sampling detector; //cannot write as Sampling detector = new Sampling();, will cause robot controller to crash in init
     int[] pos = new int[4];
     public void runOpMode() throws InterruptedException {
-        CameraDevice.getInstance().setFlashTorchMode(true); //turns on camera flash
+        //CameraDevice.getInstance().setFlashTorchMode(true); //turns on camera flash
         detector = new Sampling(); //need to add this piece during init
         detector.init(hardwareMap.appContext, CameraViewDisplay.getInstance(), 0, this);
 
@@ -33,7 +33,7 @@ public class SamplingTest extends LinearOpMode {
             telemetry.update();
         }
 
-        CameraDevice.getInstance().setFlashTorchMode(false);
+        //CameraDevice.getInstance().setFlashTorchMode(false); TODO: fix vuforia not initialized error
 
         double max = 0;
         int maxID = 0;
