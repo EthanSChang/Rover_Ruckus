@@ -88,7 +88,7 @@ public abstract class OpenCVpipeline implements CameraBridgeViewBase.CvCameraVie
 
     @Override
     public Mat onCameraFrame(CameraBridgeViewBase.CvCameraViewFrame inputFrame) { // I think it returns a mat with a camera frame input, idk
-        Mat rgba = new Mat();
+        /*Mat rgba = new Mat();
         Mat gray = new Mat();
 
         switch (((Activity) context).getWindowManager().getDefaultDisplay().getRotation()) {
@@ -106,7 +106,8 @@ public abstract class OpenCVpipeline implements CameraBridgeViewBase.CvCameraVie
                 Core.rotate(inputFrame.gray(), gray, Core.ROTATE_180);
                 break;
         }
-        return processFrame(rgba, gray);
+        return processFrame(rgba, gray);*/
+        return processFrame(inputFrame.rgba(), inputFrame.gray());
     }
 
     public abstract Mat processFrame(Mat rgba, Mat gray); // is implemented in detector class and does the processing for the image
