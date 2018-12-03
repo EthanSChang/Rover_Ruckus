@@ -5,24 +5,32 @@ import com.acmerobotics.roadrunner.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.teamcode.RobotFunctions.CameraFlash;
 import org.firstinspires.ftc.teamcode.RobotFunctions.MotionStuff.TrajectoryRunner;
 import org.firstinspires.ftc.teamcode.RobotFunctions.TheAllSeeingRobot.CameraViewDisplay;
 import org.firstinspires.ftc.teamcode.RobotFunctions.TheAllSeeingRobot.Detectors.Sampling;
+import org.firstinspires.ftc.teamcode.RobotFunctions.TheAllSeeingRobot.tflite.MasterVision;
+import org.firstinspires.ftc.teamcode.RobotFunctions.TheAllSeeingRobot.tflite.SamplePositions;
 import org.firstinspires.ftc.teamcode.RobotFunctions.roadrunner.SampleTankDrive;
 @Config
 @Autonomous
 public class TrajectorySample extends LinearOpMode {
-    Sampling detector; //cannot write as Sampling detector = new Sampling();, will cause robot controller to crash in init
     int[] pos = new int[4];
-    CameraFlash flash = new CameraFlash();
+    MasterVision vision;
+    SamplePositions goldPosition;
     Pose2d startingPose;
     public static int startingPos; //1 blue crater, 2 blue depot, 3 red crater, 4 red depot
     String trajectory;
     public void runOpMode() throws InterruptedException {
-        //flash.on();
-        detector = new Sampling(); //need to add this piece during init
-        detector.init(hardwareMap.appContext, CameraViewDisplay.getInstance(), 0, this);
+        VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
+        parameters.cameraDirection = VuforiaLocalizer.CameraDirection.BACK;// recommended camera direction
+        parameters.vuforiaLicenseKey = "AT7i4ID/////AAAAGcV/BI4020ycqKtCV427Y5JV93aTLjX3SXvzzWzrXFOFSRkpFhrmm7Y/N/kNo/rZ2ZqM3MZk17jGshCaR2EzLewC5ZoDjiitcVEhIjvPLtHpwg3e+MJ5cqcbZI/txt49FBrJOgcgBU6tDpul5NY994nLB3TTgKDnlDXWJ63Lr+d5TnfeO2tLU859wT4MJCZRZE89q36hmlQFo6V6bk0BK9+/Qr8aXOS3GtaLlvUMlQIwXcYePvNEHvF7q8g8D6a31VUzEdEVfQiFDV/gTtvreAbD5A2pDeGL187rMZdxkXbadG7iP7vQKrrQmY+kaIZF9sqFAHFfgH+v+ZDYkw4YKmfEeqnIToFpvCxSOMQ3vlC0";
+
+        vision = new MasterVision(parameters, hardwareMap, true, MasterVision.TFLiteAlgorithm.INFER_NONE);
+        vision.init();// enables the camera overlay. this will take a couple of seconds
+
+
         SampleTankDrive drive = new SampleTankDrive(hardwareMap);
         TrajectoryRunner runner = new TrajectoryRunner(drive, this);
 
@@ -35,14 +43,18 @@ public class TrajectorySample extends LinearOpMode {
 
 
         waitForStart();
-        detector.enable();
+        vision.enable();// enables the tracking algorithms. this might also take a little time
+
+
+        goldPosition = vision.getTfLite().getLastKnownSampleOrder();
+
         while(opModeIsActive() && getRuntime() < 5){
             telemetry.addData("status:", "running");
-            switch(detector.pos){
-                case 0: pos[0]++; break;
-                case 1: pos[1]++; break;
-                case 2: pos[2]++; break;
-                case 3: pos[3]++; break;
+            switch(goldPosition){
+                case UNKNOWN: pos[0]++; break;
+                case LEFT: pos[1]++; break;
+                case CENTER: pos[2]++; break;
+                case RIGHT: pos[3]++; break;
             }
             telemetry.addData("unknown", pos[0]);
             telemetry.addData("left", pos[1]);
@@ -50,8 +62,8 @@ public class TrajectorySample extends LinearOpMode {
             telemetry.addData("right", pos[3]);
             telemetry.update();
         }
+        vision.disable();// disables tracking algorithms. this will free up your phone's processing power for other jobs.
 
-        //flash.off();
 
         double max = 0;
         int maxID = 0;
@@ -63,7 +75,7 @@ public class TrajectorySample extends LinearOpMode {
             }
             if(!opModeIsActive()){break;}
         }
-        detector.disable();
+
         switch(startingPos){
             case 1:
                 if(maxID == 1){trajectory = "BlueCraterLeft";}
