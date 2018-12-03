@@ -48,6 +48,7 @@ public class RunTrajectory extends LinearOpMode {
 
         telemetry.addData("trajectory number", trajectoryNum);
         telemetry.addData("trajectory", trajectory);
+        telemetry.addData("start heading", Math.toDegrees(startingPose.getHeading()));
         telemetry.update();
 
         waitForStart();
