@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.RobotFunctions.roadrunner;
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.trajectory.constraints.DriveConstraints;
 import com.qualcomm.hardware.motors.NeveRest20Gearmotor;
+import com.qualcomm.hardware.motors.NeveRest40Gearmotor;
 import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
 
 /*
@@ -22,12 +23,12 @@ public class DriveConstants {
      * adjust them in the dashboard; **config variable changes don't persist between app restarts**.
      */
     public static final MotorConfigurationType MOTOR_CONFIG =
-            MotorConfigurationType.getMotorType(NeveRest20Gearmotor.class);
+            MotorConfigurationType.getMotorType(NeveRest40Gearmotor.class);
     private static final double TICKS_PER_REV = MOTOR_CONFIG.getTicksPerRev();
 
     public static double WHEEL_RADIUS = 2; // in
-    public static double GEAR_RATIO = 1; // output/input
-    public static double TRACK_WIDTH = 17.78; // 20.16 home drivetrain, 17.78 comp drivetrain
+    public static double GEAR_RATIO = 0.5; // output/input
+    public static double TRACK_WIDTH = 17.78; // 20.16 home drivetrain, 17.78 comp drivetrain, 7.63 comp drivetrain?
 
     public static DriveConstraints BASE_CONSTRAINTS = new DriveConstraints(20.0, 30.0, Math.PI / 2, Math.PI / 2);
 
