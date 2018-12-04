@@ -6,10 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
-import org.firstinspires.ftc.teamcode.RobotFunctions.CameraFlash;
 import org.firstinspires.ftc.teamcode.RobotFunctions.MotionStuff.TrajectoryRunner;
-import org.firstinspires.ftc.teamcode.RobotFunctions.TheAllSeeingRobot.CameraViewDisplay;
-import org.firstinspires.ftc.teamcode.RobotFunctions.TheAllSeeingRobot.Detectors.Sampling;
 import org.firstinspires.ftc.teamcode.RobotFunctions.TheAllSeeingRobot.tflite.MasterVision;
 import org.firstinspires.ftc.teamcode.RobotFunctions.TheAllSeeingRobot.tflite.SamplePositions;
 import org.firstinspires.ftc.teamcode.RobotFunctions.roadrunner.SampleTankDrive;
