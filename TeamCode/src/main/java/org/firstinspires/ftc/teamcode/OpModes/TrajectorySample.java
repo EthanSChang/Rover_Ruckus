@@ -5,9 +5,7 @@ import com.acmerobotics.roadrunner.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
-import org.firstinspires.ftc.teamcode.RobotFunctions.MotionStuff.TrajectoryRunner;
-import org.firstinspires.ftc.teamcode.RobotFunctions.roadrunner.SampleTankDrive;
+
 @Config
 @Autonomous
 public class TrajectorySample extends LinearOpMode {
