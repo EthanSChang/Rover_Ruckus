@@ -27,7 +27,7 @@ public class DriveConstants {
     private static final double TICKS_PER_REV = MOTOR_CONFIG.getTicksPerRev();
 
     public static double WHEEL_RADIUS = 2; // in
-    public static double GEAR_RATIO = 0.5; // output/input
+    public static double GEAR_RATIO = 2; // output/input
     public static double TRACK_WIDTH = 17.78; // 20.16 home drivetrain, 17.78 comp drivetrain, 7.63 comp drivetrain?
 
     public static DriveConstraints BASE_CONSTRAINTS = new DriveConstraints(20.0, 30.0, Math.PI / 2, Math.PI / 2);

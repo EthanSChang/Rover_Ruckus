@@ -14,6 +14,7 @@ import com.acmerobotics.roadrunner.trajectory.constraints.TankConstraints;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.hardware.motors.NeveRest20Gearmotor;
+import com.qualcomm.hardware.motors.NeveRest40Gearmotor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -29,7 +30,7 @@ import java.util.Arrays;
 import java.util.List;
 @Config
 public class SampleTankDrive extends TankDrive {
-    public static final MotorConfigurationType MOTOR_CONFIG = MotorConfigurationType.getMotorType(NeveRest20Gearmotor.class);
+    public static final MotorConfigurationType MOTOR_CONFIG = MotorConfigurationType.getMotorType(NeveRest40Gearmotor.class);
     public BNO055IMU imu;
 
     public static com.acmerobotics.roadrunner.control.PIDCoefficients TRANSLATIONAL_PID = new com.acmerobotics.roadrunner.control.PIDCoefficients(0, 0, 0);
