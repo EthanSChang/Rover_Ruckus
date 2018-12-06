@@ -2,8 +2,8 @@ package org.firstinspires.ftc.teamcode.RobotFunctions.vision
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector
-import org.firstinspires.ftc.teamcode.vision.MasterVision
-import org.firstinspires.ftc.teamcode.vision.SampleRandomizedPositions
+import org.firstinspires.ftc.teamcode.RobotFunctions.vision.MasterVision
+import org.firstinspires.ftc.teamcode.RobotFunctions.vision.SampleRandomizedPositions
 
 /**
  * Created by David Lukens on 10/31/2018.
