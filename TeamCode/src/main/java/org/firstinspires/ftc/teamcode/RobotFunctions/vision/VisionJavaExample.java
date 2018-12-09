@@ -10,7 +10,6 @@ import org.firstinspires.ftc.teamcode.RobotFunctions.vision.MasterVision;
 import org.firstinspires.ftc.teamcode.RobotFunctions.vision.SampleRandomizedPositions;
 
 @TeleOp
-@Disabled
 public class VisionJavaExample extends LinearOpMode{
     MasterVision vision;
     SampleRandomizedPositions goldPosition;
@@ -19,7 +18,10 @@ public class VisionJavaExample extends LinearOpMode{
     public void runOpMode() throws InterruptedException {
         VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
         parameters.cameraDirection = VuforiaLocalizer.CameraDirection.BACK;// recommended camera direction
-        parameters.vuforiaLicenseKey = "Insert your license key here";
+        parameters.vuforiaLicenseKey = "AT7i4ID/////AAAAGcV/BI4020ycqKtCV427Y5JV93aTLjX3SXvzzWzrXFOFSRkpFhrmm7Y/N/kNo/rZ2ZqM3MZk17j" +
+                "GshCaR2EzLewC5ZoDjiitcVEhIjvPLtHpwg3e+MJ5cqcbZI/txt49FBrJOgcgBU6tDpul5NY994nLB3TTgKDnlDXWJ63Lr+d5TnfeO2tLU859wT4MJ" +
+                "CZRZE89q36hmlQFo6V6bk0BK9+/Qr8aXOS3GtaLlvUMlQIwXcYePvNEHvF7q8g8D6a31VUzEdEVfQiFDV/gTtvreAbD5A2pDeGL187rMZdxkXbadG7" +
+                "iP7vQKrrQmY+kaIZF9sqFAHFfgH+v+ZDYkw4YKmfEeqnIToFpvCxSOMQ3vlC0";
 
         vision = new MasterVision(parameters, hardwareMap, true, MasterVision.TFLiteAlgorithm.INFER_NONE);
         vision.init();// enables the camera overlay. this will take a couple of seconds
