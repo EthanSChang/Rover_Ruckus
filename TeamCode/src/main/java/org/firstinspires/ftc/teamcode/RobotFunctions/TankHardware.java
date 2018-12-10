@@ -6,8 +6,8 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.RobotFunctions.MotionStuff.PID;
+import org.firstinspires.ftc.teamcode.RobotFunctions.roadrunner.SampleTankDrive;
 import org.firstinspires.ftc.teamcode.RobotFunctions.subsystems.Climber;
-import org.firstinspires.ftc.teamcode.RobotFunctions.subsystems.DriveTrain;
 import org.firstinspires.ftc.teamcode.RobotFunctions.subsystems.Sensors;
 
 /**
@@ -23,7 +23,7 @@ import org.firstinspires.ftc.teamcode.RobotFunctions.subsystems.Sensors;
 
 
 public class TankHardware {
-    public DriveTrain driveTrain;
+    public SampleTankDrive driveTrain;
     public Sensors sensors;
     public Climber climber;
     LinearOpMode LinOpmode;
@@ -35,7 +35,7 @@ public class TankHardware {
     public void init(HardwareMap map, LinearOpMode LinOpMode){
         this.LinOpmode = LinOpMode;
         hMap = map; //stores hardware map
-        driveTrain = new DriveTrain(hMap, LinOpmode);
+        driveTrain = new SampleTankDrive(hMap, LinOpmode);
         driveTrain.br.setDirection(DcMotorSimple.Direction.REVERSE);
         driveTrain.fr.setDirection(DcMotorSimple.Direction.REVERSE);
         sensors = new Sensors(hMap);
@@ -44,7 +44,7 @@ public class TankHardware {
 
     public void init(HardwareMap map){
         hMap = map; //stores hardware map
-        driveTrain = new DriveTrain(hMap);
+        driveTrain = new SampleTankDrive(hMap);
         driveTrain.br.setDirection(DcMotorSimple.Direction.REVERSE);
         driveTrain.fr.setDirection(DcMotorSimple.Direction.REVERSE);
         sensors = new Sensors(hMap);
@@ -58,7 +58,7 @@ public class TankHardware {
         startAngle = sensors.getHeading();
         target = ((angle + startAngle) + 360) % 360; //prevents angle from exceeding 360
 
-        driveTrain.setMode(DriveTrain.motor_mode.run_with_encoder); //makes motor response linear so pid can handle it better
+        driveTrain.setMode(SampleTankDrive.motor_mode.run_with_encoder); //makes motor response linear so pid can handle it better
 
         error = target - startAngle;
         while(LinOpmode.opModeIsActive() && (error > 1 || Math.abs(output) > 0.2)){

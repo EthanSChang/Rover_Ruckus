@@ -19,7 +19,7 @@ public class ArcadeDrive extends OpMode {
 
     public void init(){
         robot.init(hardwareMap);
-        robot.driveTrain.SetBrake();
+        robot.driveTrain.setBrake();
     }
 
     public void loop(){
