@@ -15,7 +15,7 @@ public class RunTrajectory extends LinearOpMode {
     TelemetryPacket packet = new TelemetryPacket();
     public static int trajectoryNum;
     String trajectory;
-    Pose2d startingPose;
+    Pose2d startingPose = new Pose2d(0, 0, 0);
 
     @Override
     public void runOpMode() throws InterruptedException {
