@@ -5,17 +5,23 @@ import com.acmerobotics.roadrunner.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
+import org.firstinspires.ftc.teamcode.RobotFunctions.roadrunner.SampleTankDrive;
+import org.firstinspires.ftc.teamcode.RobotFunctions.roadrunner.TrajectoryRunner;
+import org.firstinspires.ftc.teamcode.RobotFunctions.vision.MasterVision;
+import org.firstinspires.ftc.teamcode.RobotFunctions.vision.SampleRandomizedPositions;
+
 
 @Config
 @Autonomous
 public class TrajectorySample extends LinearOpMode {
     int[] pos = new int[4];
-    //MasterVision vision;
-    //SamplePositions goldPosition;
+    MasterVision vision;
+    SampleRandomizedPositions goldPosition;
     Pose2d startingPose;
     public static int startingPos; //1 blue crater, 2 blue depot, 3 red crater, 4 red depot
     String trajectory;
-    public void runOpMode() throws InterruptedException {/*
+    public void runOpMode() throws InterruptedException {
         VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
         parameters.cameraDirection = VuforiaLocalizer.CameraDirection.BACK;// recommended camera direction
         parameters.vuforiaLicenseKey = "AT7i4ID/////AAAAGcV/BI4020ycqKtCV427Y5JV93aTLjX3SXvzzWzrXFOFSRkpFhrmm7Y/N/kNo/rZ2ZqM3MZk17jGshCaR2EzLewC5ZoDjiitcVEhIjvPLtHpwg3e+MJ5cqcbZI/txt49FBrJOgcgBU6tDpul5NY994nLB3TTgKDnlDXWJ63Lr+d5TnfeO2tLU859wT4MJCZRZE89q36hmlQFo6V6bk0BK9+/Qr8aXOS3GtaLlvUMlQIwXcYePvNEHvF7q8g8D6a31VUzEdEVfQiFDV/gTtvreAbD5A2pDeGL187rMZdxkXbadG7iP7vQKrrQmY+kaIZF9sqFAHFfgH+v+ZDYkw4YKmfEeqnIToFpvCxSOMQ3vlC0";
@@ -34,15 +40,13 @@ public class TrajectorySample extends LinearOpMode {
         runner.setStartingPose(startingPose);
 
 
-
-        waitForStart();
         vision.enable();// enables the tracking algorithms. this might also take a little time
-
-
-        goldPosition = vision.getTfLite().getLastKnownSampleOrder();
-
+        waitForStart();
+        telemetry.addData("status", "starting");
         while(opModeIsActive() && getRuntime() < 5){
+            goldPosition = vision.getTfLite().getLastKnownSampleOrder();
             telemetry.addData("status:", "running");
+            telemetry.update();
             switch(goldPosition){
                 case UNKNOWN: pos[0]++; break;
                 case LEFT: pos[1]++; break;
@@ -68,7 +72,7 @@ public class TrajectorySample extends LinearOpMode {
             }
             if(!opModeIsActive()){break;}
         }
-
+        /*
         switch(startingPos){
             case 1:
                 if(maxID == 1){trajectory = "BlueCraterLeft";}
@@ -90,11 +94,11 @@ public class TrajectorySample extends LinearOpMode {
                 else if(maxID == 2){trajectory = "RedDepotCenter";}
                 else if(maxID == 3){trajectory = "RedDepotRight";}
                 break;
-        }
+        }*/
         telemetry.addData("max id", maxID); //0 unknown, 1 left, 2 center, 3 right
-        telemetry.addData("trajectory", trajectory);
+        //telemetry.addData("trajectory", trajectory);
         telemetry.update();
 
-        runner.runTrajectory(trajectory);*/
+        //runner.runTrajectory(trajectory);
     }
 }
