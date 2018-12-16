@@ -58,6 +58,17 @@ public class Sample extends LinearOpMode {
         vision.disable();// disables tracking algorithms. this will free up your phone's processing power for other jobs.
         vision.shutdown();
 
+        double max = 0;
+        int maxID = 0;
 
+        for(int i = 0; i < 4; i++){
+            if(pos[i] > max){
+                max = pos[i];
+                maxID = i;
+            }
+        }
+
+        telemetry.addData("max id", maxID);
+        telemetry.update();
     }
 }
