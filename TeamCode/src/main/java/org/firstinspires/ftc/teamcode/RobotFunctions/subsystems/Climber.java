@@ -1,11 +1,12 @@
 package org.firstinspires.ftc.teamcode.RobotFunctions.subsystems;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-public class Climber {//TODO: add touch switch that only lets motor run to move climber up if switch is activated
+public class Climber {
     HardwareMap map;
     LinearOpMode linOpMode;
     public DigitalChannel limLow, limHigh; //false when pressed
@@ -15,6 +16,7 @@ public class Climber {//TODO: add touch switch that only lets motor run to move 
         map = hmap;
         this.linOpMode = linOpMode;
         climb = (DcMotorEx) map.dcMotor.get("climb");
+        climb.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         limLow = map.digitalChannel.get("limLow");
         limHigh = map.digitalChannel.get("limHigh");
     }
@@ -22,7 +24,20 @@ public class Climber {//TODO: add touch switch that only lets motor run to move 
     public Climber(HardwareMap hmap){
         map = hmap;
         climb = (DcMotorEx) map.dcMotor.get("climb");
+        climb.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         limLow = map.digitalChannel.get("limLow");
         limHigh = map.digitalChannel.get("limHigh");
+    }
+
+    public void raise(){
+        climb.setPower(-0.5);
+        while(linOpMode.opModeIsActive() && limHigh.getState()){}
+        climb.setPower(0);
+    }
+
+    public void lower(){
+        climb.setPower(0.5);
+        while(linOpMode.opModeIsActive() && limLow.getState()){}
+        climb.setPower(0);
     }
 }
