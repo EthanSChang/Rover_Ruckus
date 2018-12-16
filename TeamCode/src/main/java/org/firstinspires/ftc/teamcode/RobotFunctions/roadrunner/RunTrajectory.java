@@ -7,19 +7,20 @@ import com.acmerobotics.roadrunner.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.firstinspires.ftc.teamcode.RobotFunctions.TankHardware;
+
 @Config
 @Autonomous
 public class RunTrajectory extends LinearOpMode {
-    FtcDashboard dashboard = FtcDashboard.getInstance();
-    TelemetryPacket packet = new TelemetryPacket();
+    TankHardware robot = new TankHardware();
     public static int trajectoryNum;
     String trajectory;
     Pose2d startingPose = new Pose2d(0, 0, 0);
 
     @Override
     public void runOpMode() throws InterruptedException {
-        SampleTankDrive drive = new SampleTankDrive(hardwareMap);
-        TrajectoryRunner runner = new TrajectoryRunner(drive, this);
+        robot.init(hardwareMap);
+        TrajectoryRunner runner = new TrajectoryRunner(robot.driveTrain, this);
 
         switch(trajectoryNum){//takes input from dashboard and turns it into a string for the trajectory runner
             case 1: trajectory = "BlueCraterLeft"; break;
@@ -37,7 +38,6 @@ public class RunTrajectory extends LinearOpMode {
         }
 
         //sets starting position of robot based upon what trajectory is being run
-        //TODO: figure out why trajectories 4-9 run backwards
         if(trajectoryNum == 1 || trajectoryNum == 2 || trajectoryNum == 3){startingPose = new Pose2d(12, 12, Math.toRadians(135));}
         else if(trajectoryNum == 4 || trajectoryNum == 5 || trajectoryNum == 6){startingPose = new Pose2d(-12, 12, Math.toRadians(-135));}
         else if(trajectoryNum == 7 || trajectoryNum == 8 || trajectoryNum == 9){startingPose = new Pose2d(-12, -12, Math.toRadians(-45));}
