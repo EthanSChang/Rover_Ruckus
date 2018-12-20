@@ -11,7 +11,7 @@ public class Climber {
     LinearOpMode linOpMode;
     public DigitalChannel limLow, limHigh; //false when pressed
 
-    public DcMotorEx climb; //positive power moves climber counterclockwise
+    public DcMotorEx climb;
     public Climber(HardwareMap hmap, LinearOpMode linOpMode){
         map = hmap;
         this.linOpMode = linOpMode;
