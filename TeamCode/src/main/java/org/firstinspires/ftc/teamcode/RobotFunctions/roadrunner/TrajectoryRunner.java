@@ -26,7 +26,7 @@ import static org.firstinspires.ftc.teamcode.RobotFunctions.dashboardConstants.R
 
 public class TrajectoryRunner {
     TankDrive drive;
-    Pose2d startingPose;
+    Pose2d startingPose = new Pose2d(0, 0, 0);
     LinearOpMode opMode;
     FtcDashboard dashboard = FtcDashboard.getInstance();
     TelemetryPacket packet = new TelemetryPacket();
