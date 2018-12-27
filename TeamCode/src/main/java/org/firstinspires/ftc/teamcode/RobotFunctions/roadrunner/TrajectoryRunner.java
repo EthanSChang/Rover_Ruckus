@@ -55,15 +55,19 @@ public class TrajectoryRunner {
                 0,
                 0);
 
-        try {
-            Trajectory = AssetsTrajectoryLoader.load(trajectory);
-        } catch (IOException e){
-            throw new RuntimeException(e);
+        if(trajectory != null){ //TODO: test null checking
+            try {
+                Trajectory = AssetsTrajectoryLoader.load(trajectory);
+            } catch (IOException e){
+                throw new RuntimeException(e);
+            }
+
+            drive.setPoseEstimate(startingPose);
+
+            follower.followTrajectory(Trajectory);
+        } else {
+            opMode.telemetry.addData("error:", "trajectory is null");
         }
-
-        drive.setPoseEstimate(startingPose);
-
-        follower.followTrajectory(Trajectory);
 
         while(follower.isFollowing() && opMode.opModeIsActive()){
             Pose2d currentPose = drive.getPoseEstimate();
