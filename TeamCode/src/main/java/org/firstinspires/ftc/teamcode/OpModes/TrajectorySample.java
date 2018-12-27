@@ -35,10 +35,35 @@ public class TrajectorySample extends LinearOpMode {
 
         vision = new MasterVision(parameters, hardwareMap, true, MasterVision.TFLiteAlgorithm.INFER_LEFT);
         vision.init();// enables the camera overlay. this will take a couple of seconds
+        vision.enable();
+        while(!opModeIsActive() && !isStopRequested()){
+            telemetry.addData("status", "running");
+            goldPosition = vision.getTfLite().getLastKnownSampleOrder();
+            telemetry.addData("goldPosition is", goldPosition);// giving feedback
 
+            switch (goldPosition){ // using for things in the autonomous program
+                case LEFT:
+                    pos[0]++;
+                    break;
+                case CENTER:
+                    pos[1]++;
+                    break;
+                case RIGHT:
+                    pos[2]++;
+                    break;
+                case UNKNOWN:
+                    pos[3]++;
+                    break;
+            }
+            telemetry.addData("left count", pos[0]);
+            telemetry.addData("center count", pos[1]);
+            telemetry.addData("right count", pos[2]);
+            telemetry.addData("unknown count", pos[3]);
+            telemetry.update();
+        }
         waitForStart();
         resetStartTime();
-        vision.enable();// enables the tracking algorithms. this might also take a little time
+
         telemetry.addData("status", "starting");
 
         while(opModeIsActive() && getRuntime() < 5){
@@ -80,21 +105,25 @@ public class TrajectorySample extends LinearOpMode {
 
         switch(startingPos){
             case 1:
+                runner.setStartingPose(new Pose2d(12, 12, Math.toRadians(135)));
                 if(maxID == 0){trajectory = "BlueCraterLeft";}
                 else if(maxID == 1){trajectory = "BlueCraterCenter";}
                 else if(maxID == 2){trajectory = "BlueCraterRight";}
                 break;
             case 2:
+                runner.setStartingPose(new Pose2d(-12, 12, Math.toRadians(-135)));
                 if(maxID == 0){trajectory = "BlueDepotLeft";}
                 else if(maxID == 1){trajectory = "BlueDepotCenter";}
                 else if(maxID == 2){trajectory = "BlueDepotRight";}
                 break;
             case 3:
+                runner.setStartingPose(new Pose2d(-12, -12, Math.toRadians(-45)));
                 if(maxID == 0){trajectory = "RedCraterLeft";}
                 else if(maxID == 1){trajectory = "RedCraterCenter";}
                 else if(maxID == 2){trajectory = "RedCraterRight";}
                 break;
             case 4:
+                runner.setStartingPose(new Pose2d(-12, 12, Math.toRadians(45)));
                 if(maxID == 0){trajectory = "RedDepotLeft";}
                 else if(maxID == 1){trajectory = "RedDepotCenter";}
                 else if(maxID == 2){trajectory = "RedDepotRight";}
