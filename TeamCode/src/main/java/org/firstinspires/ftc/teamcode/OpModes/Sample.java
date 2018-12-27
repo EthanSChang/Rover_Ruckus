@@ -24,11 +24,36 @@ public class Sample extends LinearOpMode {
 
         vision = new MasterVision(parameters, hardwareMap, true, MasterVision.TFLiteAlgorithm.INFER_LEFT);
         vision.init();// enables the camera overlay. this will take a couple of seconds
+        vision.enable();
+        while(!opModeIsActive()){
+            telemetry.addData("status", "running");
+            goldPosition = vision.getTfLite().getLastKnownSampleOrder();
+            telemetry.addData("goldPosition is", goldPosition);// giving feedback
 
-
+            switch (goldPosition){ // using for things in the autonomous program
+                case LEFT:
+                    pos[0]++;
+                    break;
+                case CENTER:
+                    pos[1]++;
+                    break;
+                case RIGHT:
+                    pos[2]++;
+                    break;
+                case UNKNOWN:
+                    pos[3]++;
+                    break;
+            }
+            telemetry.addData("left count", pos[0]);
+            telemetry.addData("center count", pos[1]);
+            telemetry.addData("right count", pos[2]);
+            telemetry.addData("unknown count", pos[3]);
+            telemetry.update();
+        }
         waitForStart();
+
         resetStartTime();
-        vision.enable();// enables the tracking algorithms. this might also take a little time
+
         telemetry.addData("status", "starting");
 
         while(opModeIsActive() && getRuntime() < 5){
