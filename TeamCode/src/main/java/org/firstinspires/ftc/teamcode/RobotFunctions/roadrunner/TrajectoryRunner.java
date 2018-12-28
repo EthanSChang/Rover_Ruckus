@@ -55,7 +55,7 @@ public class TrajectoryRunner {
                 0,
                 0);
 
-        if(trajectory != null){ //TODO: test null checking
+        if(trajectory != null){
             try {
                 Trajectory = AssetsTrajectoryLoader.load(trajectory);
             } catch (IOException e){
