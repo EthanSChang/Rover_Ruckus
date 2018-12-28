@@ -67,6 +67,7 @@ public class TrajectoryRunner {
             follower.followTrajectory(Trajectory);
         } else {
             opMode.telemetry.addData("error:", "trajectory is null");
+            opMode.telemetry.update();
         }
 
         while(follower.isFollowing() && opMode.opModeIsActive()){
