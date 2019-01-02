@@ -29,11 +29,9 @@ public class VisionJavaExample extends LinearOpMode{
 
         waitForStart();
 
-        vision.disable();// disables tracking algorithms. this will free up your phone's processing power for other jobs.
-
-        goldPosition = vision.getTfLite().getLastKnownSampleOrder();
 
         while(opModeIsActive()){
+            goldPosition = vision.getTfLite().getLastKnownSampleOrder();
             telemetry.addData("goldPosition was", goldPosition);// giving feedback
 
             switch (goldPosition){ // using for things in the autonomous program
