@@ -64,7 +64,7 @@ public class Auto {
                 "CZRZE89q36hmlQFo6V6bk0BK9+/Qr8aXOS3GtaLlvUMlQIwXcYePvNEHvF7q8g8D6a31VUzEdEVfQiFDV/gTtvreAbD5A2pDeGL187rMZdxkXbadG7" +
                 "iP7vQKrrQmY+kaIZF9sqFAHFfgH+v+ZDYkw4YKmfEeqnIToFpvCxSOMQ3vlC0";
 
-        vision = new MasterVision(parameters, map, true, MasterVision.TFLiteAlgorithm.INFER_LEFT);
+        vision = new MasterVision(parameters, map, false, MasterVision.TFLiteAlgorithm.INFER_LEFT);
         vision.init();
         vision.enable();
 
@@ -82,14 +82,15 @@ public class Auto {
                 case LEFT:
                     pos[0]++;
                     break;
-                case RIGHT:
+                case CENTER:
                     pos[1]++;
                     break;
-                case CENTER:
+                case RIGHT:
                     pos[2]++;
                     break;
                 case UNKNOWN:
                     pos[3]++;
+                    break;
             }
 
             opMode.telemetry.addData("gold position", goldPosition);
