@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.RobotFunctions.vision
 
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode
 import org.firstinspires.ftc.robotcore.external.ClassFactory
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector
 
@@ -30,7 +31,7 @@ class TFLite(private val master: MasterVision) {
         if (tfod != null) {
             val updatedRecognitions = tfod?.updatedRecognitions
             if (updatedRecognitions != null) {
-                if (updatedRecognitions.size == 3 || updatedRecognitions.size == 2) {
+                if (updatedRecognitions.size == 3 || updatedRecognitions.size == 2 || updatedRecognitions.size == 1 || updatedRecognitions.size == 0) {
                     var goldMineralX: Int? = null
                     var silverMineral1X: Int? = null
                     var silverMineral2X: Int? = null
@@ -63,6 +64,15 @@ class TFLite(private val master: MasterVision) {
                                                 SampleRandomizedPositions.CENTER
                                             else
                                                 SampleRandomizedPositions.RIGHT
+
+                            } else{
+                                if(goldMineralX == null) {
+                                    lastKnownSampleOrder = SampleRandomizedPositions.LEFT
+                                } else if(goldMineralX < 550){
+                                    lastKnownSampleOrder = SampleRandomizedPositions.CENTER
+                                } else if(goldMineralX > 550){
+                                    lastKnownSampleOrder = SampleRandomizedPositions.RIGHT
+                                }
                             }
                         }
                         MasterVision.TFLiteAlgorithm.INFER_RIGHT -> {
