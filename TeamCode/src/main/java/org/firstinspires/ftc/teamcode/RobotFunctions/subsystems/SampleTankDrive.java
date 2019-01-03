@@ -31,8 +31,8 @@ public class SampleTankDrive extends TankDrive {
     public static final MotorConfigurationType MOTOR_CONFIG = MotorConfigurationType.getMotorType(NeveRest40Gearmotor.class);
     public BNO055IMU imu;
 
-    public static com.acmerobotics.roadrunner.control.PIDCoefficients TRANSLATIONAL_PID = new com.acmerobotics.roadrunner.control.PIDCoefficients(0, 0, 0);
-    public static com.acmerobotics.roadrunner.control.PIDCoefficients HEADING_PID = new com.acmerobotics.roadrunner.control.PIDCoefficients(0, 0, 0);
+    public static PIDCoefficients TRANSLATIONAL_PID = new PIDCoefficients(0.53, 0, 0.015);
+    public static PIDCoefficients HEADING_PID = new PIDCoefficients(0.03, 0, 0.01);
 
     private static final double TICKS_PER_REV = MOTOR_CONFIG.getTicksPerRev();
 
