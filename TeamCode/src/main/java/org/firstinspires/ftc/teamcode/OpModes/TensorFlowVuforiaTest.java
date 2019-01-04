@@ -113,7 +113,7 @@ public class TensorFlowVuforiaTest extends LinearOpMode {
                     List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
                     if (updatedRecognitions != null) {
                       telemetry.addData("# Object Detected", updatedRecognitions.size());
-                      if (updatedRecognitions.size() == 3) {
+                      if (updatedRecognitions.size() == 3 || updatedRecognitions.size() == 2 || updatedRecognitions.size() == 1) {
                         int goldMineralX = -1;
                         int silverMineral1X = -1;
                         int silverMineral2X = -1;
@@ -126,6 +126,7 @@ public class TensorFlowVuforiaTest extends LinearOpMode {
                             silverMineral2X = (int) recognition.getLeft();
                           }
                         }
+                        telemetry.addData("gold position", goldMineralX);
                         if (goldMineralX != -1 && silverMineral1X != -1 && silverMineral2X != -1) {
                           if (goldMineralX < silverMineral1X && goldMineralX < silverMineral2X) {
                             telemetry.addData("Gold Mineral Position", "Left");
@@ -136,6 +137,7 @@ public class TensorFlowVuforiaTest extends LinearOpMode {
                           }
                         }
                       }
+
                       telemetry.update();
                     }
                 }
