@@ -17,6 +17,7 @@ import org.firstinspires.ftc.teamcode.RobotFunctions.roadrunner.DriveConstants;
 
 import java.io.IOException;
 
+
 import static org.firstinspires.ftc.teamcode.RobotFunctions.dashboardConstants.RoadRunnerConstants.HeadingKd;
 import static org.firstinspires.ftc.teamcode.RobotFunctions.dashboardConstants.RoadRunnerConstants.HeadingKi;
 import static org.firstinspires.ftc.teamcode.RobotFunctions.dashboardConstants.RoadRunnerConstants.HeadingKp;
@@ -30,6 +31,7 @@ public class TrajectoryRunner {
     LinearOpMode opMode;
     FtcDashboard dashboard = FtcDashboard.getInstance();
     TelemetryPacket packet = new TelemetryPacket();
+
     public TrajectoryRunner(TankDrive drive, Pose2d startingPose, LinearOpMode opMode){
         this.drive = drive;
         this.startingPose = startingPose;
@@ -41,16 +43,14 @@ public class TrajectoryRunner {
         this.opMode = opMode;
     }
 
-    public void setStartingPose(Pose2d startingPose){
-        this.startingPose = startingPose;
-    }
+    public void setStartingPose(Pose2d startingPose){this.startingPose = startingPose;}
 
     public void runTrajectory(String trajectory){
         Trajectory Trajectory;
         TankPIDVAFollower follower = new TankPIDVAFollower(
                 drive,
-                new PIDCoefficients(PathKp, PathKi, PathKd),
-                new PIDCoefficients(HeadingKp, HeadingKi, HeadingKd),
+                DriveConstants.TRANSLATIONAL_PID,
+                DriveConstants.HEADING_PID,
                 DriveConstants.kV,
                 0,
                 0);
@@ -72,10 +72,6 @@ public class TrajectoryRunner {
 
         while(follower.isFollowing() && opMode.opModeIsActive()){
             Pose2d currentPose = drive.getPoseEstimate();
-
-            packet.put("x pos", drive.getPoseEstimate().getX());
-            packet.put("y pos", drive.getPoseEstimate().getY());
-            dashboard.sendTelemetryPacket(packet);
 
             follower.update(currentPose);
             drive.updatePoseEstimate();
