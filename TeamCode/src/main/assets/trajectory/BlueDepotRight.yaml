@@ -6,17 +6,17 @@ poses:
 - x: -22.0
   y: 12.0
   heading: 2.356194490192345
-- x: -12.0
-  y: 35.0
+- x: -15.0
+  y: 37.0
   heading: 2.356194490192345
 - x: -25.0
-  y: 46.0
+  y: 45.0
   heading: 2.356194490192345
-- x: -45.0
+- x: -37.0
   y: 55.0
   heading: 3.141592653589793
 constraints:
-  maximumVelocity: 15.0
+  maximumVelocity: 10.0
   maximumAcceleration: 40.0
   maximumAngularVelocity: 3.141592653589793
   maximumAngularAcceleration: 6.283185307179586
