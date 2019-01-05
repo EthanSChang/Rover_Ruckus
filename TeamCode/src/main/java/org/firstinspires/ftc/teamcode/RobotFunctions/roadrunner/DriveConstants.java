@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.RobotFunctions.roadrunner;
 
 import com.acmerobotics.dashboard.config.Config;
+import com.acmerobotics.roadrunner.control.PIDCoefficients;
 import com.acmerobotics.roadrunner.trajectory.constraints.DriveConstraints;
 import com.qualcomm.hardware.motors.NeveRest20Gearmotor;
 import com.qualcomm.hardware.motors.NeveRest40Gearmotor;
@@ -25,6 +26,9 @@ public class DriveConstants {
     public static final MotorConfigurationType MOTOR_CONFIG =
             MotorConfigurationType.getMotorType(NeveRest40Gearmotor.class);
     private static final double TICKS_PER_REV = MOTOR_CONFIG.getTicksPerRev();
+
+    public static PIDCoefficients TRANSLATIONAL_PID = new PIDCoefficients(0.53, 0, 0.015);
+    public static PIDCoefficients HEADING_PID = new PIDCoefficients(0.03, 0, 0.01);
 
     public static double WHEEL_RADIUS = 2; // in
     public static double GEAR_RATIO = 2; // output/input

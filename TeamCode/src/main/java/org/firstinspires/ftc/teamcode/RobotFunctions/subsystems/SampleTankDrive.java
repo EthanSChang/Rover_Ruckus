@@ -31,9 +31,6 @@ public class SampleTankDrive extends TankDrive {
     public static final MotorConfigurationType MOTOR_CONFIG = MotorConfigurationType.getMotorType(NeveRest40Gearmotor.class);
     public BNO055IMU imu;
 
-    public static PIDCoefficients TRANSLATIONAL_PID = new PIDCoefficients(0.53, 0, 0.015);
-    public static PIDCoefficients HEADING_PID = new PIDCoefficients(0.03, 0, 0.01);
-
     private static final double TICKS_PER_REV = MOTOR_CONFIG.getTicksPerRev();
 
     public enum motor_mode {
@@ -57,7 +54,7 @@ public class SampleTankDrive extends TankDrive {
         // TODO: test running feed forward opmode with different speeds and number of turns
         super(DriveConstants.TRACK_WIDTH); //20.16 for home drivetrain
         constraints = new TankConstraints(DriveConstants.BASE_CONSTRAINTS, DriveConstants.TRACK_WIDTH);
-        follower = new TankPIDVAFollower(this, TRANSLATIONAL_PID, HEADING_PID,
+        follower = new TankPIDVAFollower(this, DriveConstants.TRANSLATIONAL_PID, DriveConstants.HEADING_PID,
                 DriveConstants.kV, DriveConstants.kA, DriveConstants.kStatic);
 
         fl = hardwareMap.get(DcMotorEx.class, "fl");
@@ -91,7 +88,7 @@ public class SampleTankDrive extends TankDrive {
         super(DriveConstants.TRACK_WIDTH); //20.16 for home drivetrain
         linOpMode = opMode;
         constraints = new TankConstraints(DriveConstants.BASE_CONSTRAINTS, DriveConstants.TRACK_WIDTH);
-        follower = new TankPIDVAFollower(this, TRANSLATIONAL_PID, HEADING_PID,
+        follower = new TankPIDVAFollower(this, DriveConstants.TRANSLATIONAL_PID, DriveConstants.HEADING_PID,
                 DriveConstants.kV, DriveConstants.kA, DriveConstants.kStatic);
 
         fl = hardwareMap.get(DcMotorEx.class, "fl");
