@@ -28,11 +28,11 @@ public class DriveConstants {
 
     public static double WHEEL_RADIUS = 2; // in
     public static double GEAR_RATIO = 2; // output/input
-    public static double TRACK_WIDTH = 15.37; // 20.16 home drivetrain, 15.09 comp drivetrain, 7.63 comp drivetrain?
+    public static double TRACK_WIDTH = 15.27; // 20.16 home drivetrain, 15.09 comp drivetrain, 7.63 comp drivetrain?
 
     public static DriveConstraints BASE_CONSTRAINTS = new DriveConstraints(20.0, 30.0, Math.PI / 2, Math.PI / 2);
 
-    public static double kV = 0.01861;
+    public static double kV = 0.01815;
     public static double kA = 0;
     public static double kStatic = 0;
 
