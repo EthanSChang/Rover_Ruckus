@@ -35,6 +35,8 @@ public class RunTrajectory extends LinearOpMode {
             case 10: trajectory = "RedDepotLeft"; break;
             case 11: trajectory = "RedDepotCenter"; break;
             case 12: trajectory = "RedDepotRight"; break;
+            case 13: trajectory = "PointTurnTest"; break;
+            case 14: trajectory =  "straightTest"; break;
         }
 
         //sets starting position of robot based upon what trajectory is being run
