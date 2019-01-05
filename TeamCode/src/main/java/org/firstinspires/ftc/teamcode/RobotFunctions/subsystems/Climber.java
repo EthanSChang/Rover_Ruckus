@@ -30,13 +30,13 @@ public class Climber {
     }
 
     public void raise(){
-        climb.setPower(-0.75);
+        climb.setPower(0.75);
         while(linOpMode.opModeIsActive() && limHigh.getState()){}
         climb.setPower(0);
     }
 
     public void lower(){
-        climb.setPower(0.75);
+        climb.setPower(-0.75);
         while(linOpMode.opModeIsActive() && limLow.getState()){}
         climb.setPower(0);
     }
