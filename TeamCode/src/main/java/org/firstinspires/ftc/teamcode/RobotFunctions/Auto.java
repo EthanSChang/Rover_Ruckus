@@ -64,7 +64,7 @@ public class Auto {
                 "CZRZE89q36hmlQFo6V6bk0BK9+/Qr8aXOS3GtaLlvUMlQIwXcYePvNEHvF7q8g8D6a31VUzEdEVfQiFDV/gTtvreAbD5A2pDeGL187rMZdxkXbadG7" +
                 "iP7vQKrrQmY+kaIZF9sqFAHFfgH+v+ZDYkw4YKmfEeqnIToFpvCxSOMQ3vlC0";
 
-        vision = new MasterVision(parameters, map, false, MasterVision.TFLiteAlgorithm.INFER_LEFT);
+        vision = new MasterVision(parameters, map, true, MasterVision.TFLiteAlgorithm.INFER_LEFT);
         vision.init();
         vision.enable();
 
@@ -75,44 +75,22 @@ public class Auto {
     public void run(){
         opMode.resetStartTime();
 
-        while(opMode.opModeIsActive() && opMode.getRuntime() < 5) { //takes gold position over 5 seconds
-            goldPosition = vision.getTfLite().getLastKnownSampleOrder(); //gets current gold position
-
-            switch(goldPosition){ //accumulates position of gold
-                case LEFT:
-                    pos[0]++;
-                    break;
-                case CENTER:
-                    pos[1]++;
-                    break;
-                case RIGHT:
-                    pos[2]++;
-                    break;
-                case UNKNOWN:
-                    pos[3]++;
-                    break;
-            }
-
-            opMode.telemetry.addData("gold position", goldPosition);
-            opMode.telemetry.update();
-        }
+        goldPosition = vision.getTfLite().getLastKnownSampleOrder();
 
         //disables vision to save processing power
         vision.disable();
         vision.shutdown();
 
-        //finds largest element in pos to determine gold position
-        double max = 0;
-
-        for(int i = 0; i < 4; i++){
-            if(pos[i] > max){
-                max = pos[i];
-                posID = i;
-            }
+        switch(goldPosition){
+            case LEFT: posID = 0; break;
+            case CENTER: posID = 1; break;
+            case RIGHT: posID = 2; break;
         }
 
         opMode.telemetry.addData("posID", posID);
         opMode.telemetry.update();
+
+        robot.climber.raise();
 
         //finds correct trajectory to run
         switch(position){
@@ -147,5 +125,8 @@ public class Auto {
 
         //runs trajectory
         runner.runTrajectory(trajectory);
+
+        //lower climber
+        robot.climber.lower();
     }
 }
