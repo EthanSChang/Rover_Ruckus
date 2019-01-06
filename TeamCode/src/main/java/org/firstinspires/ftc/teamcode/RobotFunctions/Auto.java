@@ -90,7 +90,11 @@ public class Auto {
         opMode.telemetry.addData("posID", posID);
         opMode.telemetry.update();
 
-        robot.climber.raise();
+        robot.climber.climb.setPower(0.75);
+        while(!Thread.currentThread().isInterrupted() && robot.climber.limHigh.getState()){
+
+        }
+        robot.climber.climb.setPower(0);
 
         //finds correct trajectory to run
         switch(position){
