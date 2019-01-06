@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.RobotFunctions.TankHardware;
+import org.firstinspires.ftc.teamcode.RobotFunctions.subsystems.SampleTankDrive;
 
 import static org.firstinspires.ftc.teamcode.RobotFunctions.dashboardConstants.Misc.turnSpeed;
 
@@ -17,7 +18,7 @@ public class ArcadeDrive extends OpMode {
 
     public void init(){
         robot.init(hardwareMap);
-        robot.driveTrain.setBrake();
+        robot.driveTrain.setMode(SampleTankDrive.motor_mode.run_without_encoder);
     }
 
     public void loop() {
@@ -39,10 +40,6 @@ public class ArcadeDrive extends OpMode {
         }
         rtPrevSt = gamepad1.right_bumper;
 
-        telemetry.addData("started", started);
-        telemetry.addData("low lim switch", robot.climber.limLow.getState());
-        telemetry.addData("right bumper", gamepad1.right_bumper);
-        telemetry.update();
         //manual climber control
         rtStick = -gamepad1.right_stick_y;
 
