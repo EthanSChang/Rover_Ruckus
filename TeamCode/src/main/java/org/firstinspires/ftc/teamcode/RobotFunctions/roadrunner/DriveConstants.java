@@ -27,16 +27,16 @@ public class DriveConstants {
             MotorConfigurationType.getMotorType(NeveRest40Gearmotor.class);
     private static final double TICKS_PER_REV = MOTOR_CONFIG.getTicksPerRev();
 
-    public static PIDCoefficients TRANSLATIONAL_PID = new PIDCoefficients(0.53, 0, 0.015);
-    public static PIDCoefficients HEADING_PID = new PIDCoefficients(0.03, 0, 0.01);
+    public static PIDCoefficients TRANSLATIONAL_PID = new PIDCoefficients(0, 0, 0);
+    public static PIDCoefficients HEADING_PID = new PIDCoefficients(0, 0, 0);
 
     public static double WHEEL_RADIUS = 2; // in
     public static double GEAR_RATIO = 2; // output/input
-    public static double TRACK_WIDTH = 15.27; // 20.16 home drivetrain, 15.09 comp drivetrain, 7.63 comp drivetrain?
+    public static double TRACK_WIDTH = 15; // 20.16 home drivetrain, 15.09 comp drivetrain, 7.63 comp drivetrain?
 
     public static DriveConstraints BASE_CONSTRAINTS = new DriveConstraints(20.0, 30.0, Math.PI / 2, Math.PI / 2);
 
-    public static double kV = 0.01815;
+    public static double kV = 0.0155;
     public static double kA = 0;
     public static double kStatic = 0;
 
