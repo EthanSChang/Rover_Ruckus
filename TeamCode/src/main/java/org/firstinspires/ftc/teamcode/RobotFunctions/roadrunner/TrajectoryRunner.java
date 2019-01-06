@@ -1,29 +1,14 @@
 package org.firstinspires.ftc.teamcode.RobotFunctions.roadrunner;
 
 import com.acmerobotics.dashboard.FtcDashboard;
-import com.acmerobotics.dashboard.canvas.Canvas;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Pose2d;
-import com.acmerobotics.roadrunner.control.PIDCoefficients;
-import com.acmerobotics.roadrunner.drive.Drive;
 import com.acmerobotics.roadrunner.drive.TankDrive;
 import com.acmerobotics.roadrunner.followers.TankPIDVAFollower;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.teamcode.RobotFunctions.roadrunner.AssetsTrajectoryLoader;
-import org.firstinspires.ftc.teamcode.RobotFunctions.roadrunner.DashboardUtil;
-import org.firstinspires.ftc.teamcode.RobotFunctions.roadrunner.DriveConstants;
-
 import java.io.IOException;
-
-
-import static org.firstinspires.ftc.teamcode.RobotFunctions.dashboardConstants.RoadRunnerConstants.HeadingKd;
-import static org.firstinspires.ftc.teamcode.RobotFunctions.dashboardConstants.RoadRunnerConstants.HeadingKi;
-import static org.firstinspires.ftc.teamcode.RobotFunctions.dashboardConstants.RoadRunnerConstants.HeadingKp;
-import static org.firstinspires.ftc.teamcode.RobotFunctions.dashboardConstants.RoadRunnerConstants.PathKd;
-import static org.firstinspires.ftc.teamcode.RobotFunctions.dashboardConstants.RoadRunnerConstants.PathKi;
-import static org.firstinspires.ftc.teamcode.RobotFunctions.dashboardConstants.RoadRunnerConstants.PathKp;
 
 public class TrajectoryRunner {
     TankDrive drive;

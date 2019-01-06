@@ -2,13 +2,11 @@ package org.firstinspires.ftc.teamcode.RobotFunctions.TheAllSeeingRobot;
 
 import android.app.Activity;
 import android.content.Context;
-import android.view.Surface;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.opencv.android.CameraBridgeViewBase;
 import org.opencv.android.JavaCameraView;
-import org.opencv.core.Core;
 import org.opencv.core.Mat;
 
 /**

@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode.RobotFunctions.roadrunner;
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.control.PIDCoefficients;
 import com.acmerobotics.roadrunner.trajectory.constraints.DriveConstraints;
-import com.qualcomm.hardware.motors.NeveRest20Gearmotor;
 import com.qualcomm.hardware.motors.NeveRest40Gearmotor;
 import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
 

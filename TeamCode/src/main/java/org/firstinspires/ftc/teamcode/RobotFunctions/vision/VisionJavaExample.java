@@ -1,13 +1,9 @@
 package org.firstinspires.ftc.teamcode.RobotFunctions.vision;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.vuforia.Vuforia;
 
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
-import org.firstinspires.ftc.teamcode.RobotFunctions.vision.MasterVision;
-import org.firstinspires.ftc.teamcode.RobotFunctions.vision.SampleRandomizedPositions;
 
 @TeleOp
 public class VisionJavaExample extends LinearOpMode{
