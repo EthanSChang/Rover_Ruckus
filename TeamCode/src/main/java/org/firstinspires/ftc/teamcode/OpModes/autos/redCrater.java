@@ -13,6 +13,7 @@ public class redCrater extends LinearOpMode {
     Auto auto;
     @Override
     public void runOpMode() throws InterruptedException {
+        //this.msStuckDetectStop = 1500; //adds more delay before robot controller crashes, default 1000 ms
         robot.init(hardwareMap, this);
         auto = new Auto(robot, hardwareMap, this, Auto.field_position.red_crater);
         auto.init();
