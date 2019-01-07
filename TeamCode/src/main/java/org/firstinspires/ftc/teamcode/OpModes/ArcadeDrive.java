@@ -22,8 +22,13 @@ public class ArcadeDrive extends OpMode {
     }
 
     public void loop() {
+
         //drivetrain control
-        robot.driveTrain.arcadeDrive(gamepad1.left_stick_x * turnSpeed, gamepad1.left_stick_y, gamepad1.a);
+        if(gamepad1.left_bumper){
+            robot.driveTrain.arcadeDrive(gamepad1.left_stick_x * turnSpeed, gamepad1.left_stick_y * 0.5, gamepad1.a);
+        } else{
+            robot.driveTrain.arcadeDrive(gamepad1.left_stick_x * turnSpeed, gamepad1.left_stick_y, gamepad1.a);
+        }
 
         //climber control
 
