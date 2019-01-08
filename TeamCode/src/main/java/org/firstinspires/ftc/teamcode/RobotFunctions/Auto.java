@@ -71,7 +71,7 @@ public class Auto {
         opMode.telemetry.update();
     }
 
-    public void run(){/*
+    public void run(){
         opMode.resetStartTime();
 
         goldPosition = vision.getTfLite().getLastKnownSampleOrder();
@@ -88,11 +88,11 @@ public class Auto {
 
         opMode.telemetry.addData("posID", posID);
         opMode.telemetry.update();
-        */
+
         robot.climber.climb.setPower(0.75);
         while(opMode.opModeIsActive() && robot.climber.limHigh.getState()){}
         robot.climber.climb.setPower(0);
-        /*
+
         //finds correct trajectory to run
         switch(position){
             case blue_crater:
@@ -129,6 +129,6 @@ public class Auto {
 
         //lower climber
         robot.climber.lower();
-        */
+
     }
 }
