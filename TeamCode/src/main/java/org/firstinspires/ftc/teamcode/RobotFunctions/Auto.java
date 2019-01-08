@@ -21,8 +21,7 @@ public class Auto {
 
     MasterVision vision;
     SampleRandomizedPositions goldPosition;
-    int[] pos = new int[4]; //0 left, 1 right, 2 center, 3 unknown
-    int posID;
+    int posID = 0; //if gold position is unknown, default to left position
 
     public enum field_position {
         blue_crater, blue_depot, red_crater, red_depot
