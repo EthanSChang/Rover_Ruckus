@@ -71,7 +71,7 @@ public class Auto {
         opMode.telemetry.update();
     }
 
-    public void run(){/*
+    public void run(){
         opMode.resetStartTime();
 
         goldPosition = vision.getTfLite().getLastKnownSampleOrder();
@@ -79,7 +79,7 @@ public class Auto {
         //disables vision to save processing power
         vision.disable();
         vision.shutdown();
-        */
+
         switch(goldPosition){
             case LEFT: posID = 0; break;
             case CENTER: posID = 1; break;
@@ -92,7 +92,7 @@ public class Auto {
         robot.climber.climb.setPower(0.75);
         while(opMode.opModeIsActive() && robot.climber.limHigh.getState()){}
         robot.climber.climb.setPower(0);
-        /*
+
         //finds correct trajectory to run
         switch(position){
             case blue_crater:
@@ -125,10 +125,9 @@ public class Auto {
         opMode.telemetry.update();
 
         //runs trajectory
-        runner.runTrajectory(trajectory);
+        //runner.runTrajectory(trajectory);
 
         //lower climber
         robot.climber.lower();
-        */
     }
 }

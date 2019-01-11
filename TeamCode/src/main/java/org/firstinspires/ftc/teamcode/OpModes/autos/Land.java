@@ -17,13 +17,15 @@ public class Land extends LinearOpMode { //just lands robot and moves climber ou
     @Override
     public void runOpMode() throws InterruptedException {
         AutoTransitioner.transitionOnStop(this, "ArcadeDrive"); //automatic transition to teleop program
-        robot.init(hardwareMap);
+        robot.init(hardwareMap, this);
         TrajectoryRunner runner = new TrajectoryRunner(robot.driveTrain, this);
 
         waitForStart();
 
         robot.climber.raise();
-        runner.runTrajectory("turn90");
+
+        //runner.runTrajectory("turn90");
+
         robot.climber.lower();
 
     }
