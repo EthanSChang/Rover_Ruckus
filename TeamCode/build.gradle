@@ -12,7 +12,6 @@
 apply from: '../build.common.gradle'
 apply plugin: 'kotlin-android'
 dependencies {
-    implementation project(':openCVLibrary343')
     implementation 'com.acmerobotics.roadrunner:core:0.2.5'
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
