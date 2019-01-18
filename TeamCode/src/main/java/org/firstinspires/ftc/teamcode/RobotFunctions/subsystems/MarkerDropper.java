@@ -20,4 +20,10 @@ public class MarkerDropper {
         map = hmap;
         dropper = map.servo.get("dropper");
     }
+
+    public void drop(){
+        dropper.setPosition(0.7);
+        linOpMode.sleep(1000);
+        dropper.setPosition(0);
+    }
 }
