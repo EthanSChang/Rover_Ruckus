@@ -18,6 +18,7 @@ public class ArcadeDrive extends OpMode {
 
     public void init(){
         robot.init(hardwareMap);
+        robot.driveTrain.setBrake();
         robot.driveTrain.setMode(SampleTankDrive.motor_mode.run_without_encoder);
     }
 
@@ -25,7 +26,7 @@ public class ArcadeDrive extends OpMode {
 
         //drivetrain control
         if(gamepad1.left_bumper){
-            robot.driveTrain.arcadeDrive(gamepad1.left_stick_x * turnSpeed, gamepad1.left_stick_y * 0.5, gamepad1.a);
+            robot.driveTrain.arcadeDrive(gamepad1.left_stick_x * turnSpeed, gamepad1.left_stick_y * 0.75, gamepad1.a);
         } else{
             robot.driveTrain.arcadeDrive(gamepad1.left_stick_x * turnSpeed, gamepad1.left_stick_y, gamepad1.a);
         }
