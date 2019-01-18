@@ -89,9 +89,7 @@ public class Auto {
         opMode.telemetry.addData("posID", posID);
         opMode.telemetry.update();
 
-        robot.climber.climb.setPower(0.75);
-        while(opMode.opModeIsActive() && robot.climber.limHigh.getState()){}
-        robot.climber.climb.setPower(0);
+        robot.climber.raise();
 
         //finds correct trajectory to run
         switch(position){
@@ -125,7 +123,11 @@ public class Auto {
         opMode.telemetry.update();
 
         //runs trajectory
-        //runner.runTrajectory(trajectory);
+        runner.runTrajectory(trajectory);
+
+        if(position == field_position.blue_depot || position == field_position.red_depot){ //drop marker if on depot side
+            robot.markerDropper.drop();
+        }
 
         //lower climber
         robot.climber.lower();
