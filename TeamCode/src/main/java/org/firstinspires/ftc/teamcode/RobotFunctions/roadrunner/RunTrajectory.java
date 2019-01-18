@@ -3,12 +3,14 @@ package org.firstinspires.ftc.teamcode.RobotFunctions.roadrunner;
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.RobotFunctions.TankHardware;
 
 @Config
 @Autonomous
+@Disabled
 public class RunTrajectory extends LinearOpMode {
     TankHardware robot = new TankHardware();
     public static int trajectoryNum;
