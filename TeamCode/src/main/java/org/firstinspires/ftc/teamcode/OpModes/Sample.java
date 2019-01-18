@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.OpModes;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
@@ -8,6 +9,7 @@ import org.firstinspires.ftc.teamcode.RobotFunctions.vision.MasterVision;
 import org.firstinspires.ftc.teamcode.RobotFunctions.vision.SampleRandomizedPositions;
 
 @Autonomous
+@Disabled
 public class Sample extends LinearOpMode {
     MasterVision vision;
     SampleRandomizedPositions goldPosition;

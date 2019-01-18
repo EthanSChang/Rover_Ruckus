@@ -1,11 +1,13 @@
 package org.firstinspires.ftc.teamcode.OpModes;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.RobotFunctions.AutoTransitioner;
 
 @Autonomous
+@Disabled
 public class AutoTransitionTest extends LinearOpMode {
 
     @Override
