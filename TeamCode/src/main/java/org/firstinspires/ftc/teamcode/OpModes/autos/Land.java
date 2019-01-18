@@ -24,7 +24,7 @@ public class Land extends LinearOpMode { //just lands robot and moves climber ou
 
         robot.climber.raise();
 
-        //runner.runTrajectory("turn90");
+        runner.runTrajectory("turn90");
 
         robot.climber.lower();
 
