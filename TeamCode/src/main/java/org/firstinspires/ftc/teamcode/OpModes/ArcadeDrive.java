@@ -26,7 +26,7 @@ public class ArcadeDrive extends OpMode {
 
         //drivetrain control
         if(gamepad1.left_bumper){
-            robot.driveTrain.arcadeDrive(gamepad1.left_stick_x * turnSpeed * 0.75, gamepad1.left_stick_y * 0.6, gamepad1.a);
+            robot.driveTrain.arcadeDrive(gamepad1.left_stick_x * turnSpeed * 0.8, gamepad1.left_stick_y * 0.6, gamepad1.a);
         } else{
             robot.driveTrain.arcadeDrive(gamepad1.left_stick_x * turnSpeed, gamepad1.left_stick_y, gamepad1.a);
         }
@@ -59,7 +59,12 @@ public class ArcadeDrive extends OpMode {
             robot.climber.climb.setPower(rtStick);
         }
 
-
+        //marker dropper control
+        if(gamepad1.b){
+            robot.markerDropper.dropper.setPosition(0.7);
+        } else{
+            robot.markerDropper.dropper.setPosition(0);
+        }
 
 
 
