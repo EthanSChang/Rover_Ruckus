@@ -6,8 +6,8 @@ poses:
 - x: -12.0
   y: -22.0
   heading: -1.9198621771937625
-- x: -23.0
-  y: -43.0
+- x: -25.0
+  y: -45.0
   heading: -2.356194490192345
 constraints:
   maximumVelocity: 12.0
